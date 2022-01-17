@@ -13,6 +13,7 @@
 		50309B8127960C7B00938D1E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50309B8027960C7B00938D1E /* Preview Assets.xcassets */; };
 		50309B8327960C7B00938D1E /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50309B8227960C7B00938D1E /* Persistence.swift */; };
 		50309B8627960C7B00938D1E /* Albatross.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 50309B8427960C7B00938D1E /* Albatross.xcdatamodeld */; };
+		50309B8E27960CB300938D1E /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50309B8D27960CB300938D1E /* KeyboardObserver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		50309B8227960C7B00938D1E /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		50309B8527960C7B00938D1E /* Albatross.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Albatross.xcdatamodel; sourceTree = "<group>"; };
 		50309B8727960C7B00938D1E /* Albatross.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Albatross.entitlements; sourceTree = "<group>"; };
+		50309B8D27960CB300938D1E /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				50309B8727960C7B00938D1E /* Albatross.entitlements */,
 				50309B8427960C7B00938D1E /* Albatross.xcdatamodeld */,
 				50309B7F27960C7B00938D1E /* Preview Content */,
+				50309B8D27960CB300938D1E /* KeyboardObserver.swift */,
 			);
 			path = Albatross;
 			sourceTree = "<group>";
@@ -145,6 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50309B8E27960CB300938D1E /* KeyboardObserver.swift in Sources */,
 				50309B8327960C7B00938D1E /* Persistence.swift in Sources */,
 				50309B8627960C7B00938D1E /* Albatross.xcdatamodeld in Sources */,
 				50309B7C27960C7900938D1E /* ContentView.swift in Sources */,

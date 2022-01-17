@@ -10,11 +10,15 @@ import SwiftUI
 @main
 struct AlbatrossApp: App {
     let persistenceController = PersistenceController.shared
+    let observer = KeyboardObserver()
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            EmptyView()
         }
+    }
+    
+    init() {
+        observer.start()
     }
 }
