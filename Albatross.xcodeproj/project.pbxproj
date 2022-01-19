@@ -14,6 +14,7 @@
 		50309B8327960C7B00938D1E /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50309B8227960C7B00938D1E /* Persistence.swift */; };
 		50309B8627960C7B00938D1E /* Albatross.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 50309B8427960C7B00938D1E /* Albatross.xcdatamodeld */; };
 		50309B8E27960CB300938D1E /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50309B8D27960CB300938D1E /* KeyboardObserver.swift */; };
+		503CC0A3279881A000C57566 /* KeyMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503CC0A2279881A000C57566 /* KeyMap.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		50309B8527960C7B00938D1E /* Albatross.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Albatross.xcdatamodel; sourceTree = "<group>"; };
 		50309B8727960C7B00938D1E /* Albatross.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Albatross.entitlements; sourceTree = "<group>"; };
 		50309B8D27960CB300938D1E /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
+		503CC0A2279881A000C57566 /* KeyMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyMap.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				50309B8427960C7B00938D1E /* Albatross.xcdatamodeld */,
 				50309B7F27960C7B00938D1E /* Preview Content */,
 				50309B8D27960CB300938D1E /* KeyboardObserver.swift */,
+				503CC0A2279881A000C57566 /* KeyMap.swift */,
 			);
 			path = Albatross;
 			sourceTree = "<group>";
@@ -152,6 +155,7 @@
 				50309B8327960C7B00938D1E /* Persistence.swift in Sources */,
 				50309B8627960C7B00938D1E /* Albatross.xcdatamodeld in Sources */,
 				50309B7C27960C7900938D1E /* ContentView.swift in Sources */,
+				503CC0A3279881A000C57566 /* KeyMap.swift in Sources */,
 				50309B7A27960C7900938D1E /* AlbatrossApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

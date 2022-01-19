@@ -11,6 +11,7 @@ import SwiftUI
 struct AlbatrossApp: App {
     let persistenceController = PersistenceController.shared
     let observer = KeyboardObserver()
+    let keymap = KeyMap()
 
     var body: some Scene {
         WindowGroup {
@@ -19,6 +20,19 @@ struct AlbatrossApp: App {
     }
     
     init() {
+        do {
+            try keymap.loadConfig()
+        } catch ConfigError.invalidJSON(let message) {
+            print(message)
+            exit(1)
+        } catch ConfigError.invalidValue(let message) {
+            print(message)
+            exit(1)
+        } catch {
+            print(error)
+            exit(1)
+        }
+        keymap.watchConfig()
         observer.start()
     }
 }

@@ -54,6 +54,14 @@ class KeyboardObserver: NSObject {
             let keyCode = CGKeyCode(event.getIntegerValueField(.keyboardEventKeycode))
             let flags = event.flags
             print(keyCode, flags)
+            //switch keyCode {
+            //case 0: // "a"
+            //    event.setIntegerValueField(.keyboardEventKeycode, value: 11)
+            //case 11: // "b"
+            //    event.setIntegerValueField(.keyboardEventKeycode, value: 0)
+            //default:
+            //    break
+            //}
         }
         return Unmanaged.passUnretained(event)
     }
