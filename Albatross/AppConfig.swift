@@ -63,7 +63,6 @@ class AppConfig: NSObject {
     }
     
     private func cancel() {
-        print("close")
         for source in sources {
             source.cancel()
         }
@@ -87,9 +86,10 @@ class AppConfig: NSObject {
     }
 
     public func getAppAliases(appName: String) -> [Alias] {
-        var aliases: [Alias] = []
+        var stack: Dictionary<String, Alias> = [:]
+        
         for a in config.globalAliases {
-            aliases.append(a)
+            stack[a.from.joined(separator: "")] = a
         }
         
         for app in config.appAliases {
@@ -97,8 +97,13 @@ class AppConfig: NSObject {
                 continue
             }
             for a in app.aliases {
-                aliases.append(a)
+                stack[a.from.joined(separator: "")] = a
             }
+        }
+        
+        var aliases: [Alias] = []
+        stack.forEach { elem in
+            aliases.append(elem.value)
         }
         return aliases
     }
@@ -143,8 +148,7 @@ class AppConfig: NSObject {
                         callback(self)
                         self.watch(callback: callback)
                     } catch {
-                        let notification = AppNotification(body: "Configuration did not update because invalid setting")
-                        notification.display()
+                        AppNotification.display(body: "Configuration did not update because invalid setting")
                     }
                     
                 }

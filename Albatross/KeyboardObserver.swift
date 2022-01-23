@@ -7,15 +7,27 @@
 
 import Cocoa
 
+enum KeyboardOberserError: Error {
+    case startFail
+}
+
 class KeyboardObserver: NSObject {
     private var alias: KeyAlias
+    private var isPaused: Bool = false
     
     init(alias: KeyAlias) {
         self.alias = alias
     }
-
     
-    public func start() {
+    public func pause() {
+        isPaused = true
+    }
+    
+    public func resume() {
+        isPaused = false
+    }
+    
+    public func start() throws {
         let observer = UnsafeMutableRawPointer(Unmanaged.passRetained(self).toOpaque())
         
         guard let event = CGEvent.tapCreate(
@@ -38,8 +50,7 @@ class KeyboardObserver: NSObject {
             },
             userInfo: observer
         ) else {
-            print("tapCreate failed")
-            exit(1)
+            throw KeyboardOberserError.startFail
         }
         
         CFRunLoopAddSource(
@@ -52,19 +63,21 @@ class KeyboardObserver: NSObject {
     }
     
     private func handleEvent(event: CGEvent, type: CGEventType) -> Unmanaged<CGEvent>? {
-        if type == CGEventType.keyDown {
-            //let keyCode = CGKeyCode(event.getIntegerValueField(.keyboardEventKeycode))
-            //let flags = event.flags
-            //print(flags)
-            //print(keyCode)
-            //switch keyCode {
-            //case 0: // "a"
-            //    event.setIntegerValueField(.keyboardEventKeycode, value: 11)
-            //case 11: // "b"
-            //    event.setIntegerValueField(.keyboardEventKeycode, value: 0)
-            //default:
-            //    break
-            //}
+        // If remapping is paused, do nothing
+        if isPaused {
+            return Unmanaged.passUnretained(event)
+        }
+        
+        if type == CGEventType.keyDown || type == CGEventType.keyUp{
+            let aliases = alias.getAliases()
+            if let sources = aliases[event.getIntegerValueField(.keyboardEventKeycode)] {
+                for s in sources {
+                    if s.match(event: event) {
+                        return Unmanaged.passUnretained(s.convert(event: event))
+                    }
+                }
+                
+            }
         }
         return Unmanaged.passUnretained(event)
     }

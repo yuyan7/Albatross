@@ -89,11 +89,12 @@ let metaKeyMap: Dictionary<String, UInt64> = [
     "Command_L": 0x100010,
     "Command_R": 0x100008,
     "Option_L": 0x080040,
-    "Option_R": 0x080080,
+    "Option_R": 0x080120,
     "CapsLock": 0x010000,
 ]
 
 let UNKNOWN_KEYCODE: Int64 = 999
+let DEFAULT_CGEVENT_FLAGS: UInt64 = 256
 
 class KeyEvent: NSObject {
     private var keyCode: Int64 = UNKNOWN_KEYCODE
@@ -101,6 +102,10 @@ class KeyEvent: NSObject {
     
     public func getKeyCode() -> Int64 {
         return keyCode
+    }
+    
+    public func getFlag() -> UInt64 {
+        return flag
     }
     
     public func setKeyCode(code: Int64, isShift: Bool) {
@@ -111,12 +116,13 @@ class KeyEvent: NSObject {
     }
     
     public func setMetaKey(flag: UInt64) {
-        self.flag &= flag
+        self.flag |= flag
     }
 }
 
 class DestinationEvent: KeyEvent {
-   
+    
+    
 }
 
 class ToggleEvent: DestinationEvent {
@@ -129,6 +135,45 @@ class SourceEvent: KeyEvent {
     init(destination: DestinationEvent) {
         self.destination = destination
     }
+    
+    public func match(event: CGEvent) -> Bool {
+        if event.getIntegerValueField(.keyboardEventKeycode) != getKeyCode() {
+            return false
+        }
+        
+        let flag = getFlag()
+        if (event.flags.rawValue & flag) == 0 {
+            return false
+        }
+        
+        // CGEventFlags comparison is a little more complecated
+        // If combination meta keys are specified Ctrl key only (e.g Ctrl+a) or CapsLock key, we don't care of left or right,
+        // and Control/CapsLock meta flag may be different between builtin keyboard and USB keyboard,
+        // that's messy but currently we don't know how to distinguish the input source keyboard in CGEvent.
+        // So, we gave up to handle it, just compare Control flag of 16-24 bit.
+        //
+        // On the other hand, Shift, Option, Command keys have left and right keys so we need to compare with lowest 8 bits.
+        if (((event.flags.rawValue & 0xFF) & (flag & 0xFF)) == 0) { // Lowest 8 bit comparison for other meta key combination
+            if (flag >> 16) == 0x04  { // Control combination only
+                return true
+            } else if (flag >> 16) == 0x01 { // CapsLock combination only
+                return true
+            }
+            return false
+        }
+        
+        return true
+    }
+    
+    public func convert(event: CGEvent) -> CGEvent {
+        event.setIntegerValueField(.keyboardEventKeycode, value: destination.getKeyCode())
+        if getFlag() > 0 {
+            event.flags = CGEventFlags(rawValue: (destination.getFlag() | DEFAULT_CGEVENT_FLAGS))
+        }
+        
+        return event
+    }
+   
 }
 
 func createRemapEvent(alias: Alias) -> SourceEvent? {

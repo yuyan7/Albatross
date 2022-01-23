@@ -8,32 +8,32 @@
 import Foundation
 import UserNotifications
 
-let MESSAGE_IDENTIFIER = "albatross-notification"
-
 class AppNotification: NSObject {
-    private var body: String
-    private var subtitle: String?
     
-    init(body: String) {
-        self.body = body
-    }
-    init(body: String, subtitle: String) {
-        self.body = body
-        self.subtitle = subtitle
-    }
-    
-    public func display() {
+    public static func display(body: String) {
         let content = UNMutableNotificationContent()
         content.title = "Albatross"
-        if let st = subtitle {
-            content.subtitle = st
-        }
         content.body = body
         content.sound = .none
         
-        let request = UNNotificationRequest(identifier: MESSAGE_IDENTIFIER, content: content, trigger: nil)
+        show(content: content)
+    }
+    
+    public static func display(body: String, subtitle: String) {
+        let content = UNMutableNotificationContent()
+        content.title = "Albatross"
+        content.subtitle = subtitle
+        content.body = body
+        content.sound = .none
+        
+        show(content: content)
+    }
+    
+    class func show(content: UNMutableNotificationContent) {
+        let ident = UUID().uuidString
+        let request = UNNotificationRequest(identifier: ident, content: content, trigger: nil)
         let center = UNUserNotificationCenter.current()
-        center.removeDeliveredNotifications(withIdentifiers: [MESSAGE_IDENTIFIER])
+        
         center.requestAuthorization(options: [.alert]) { _, _ in }
         center.add(request)
     }

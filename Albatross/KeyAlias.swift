@@ -29,24 +29,28 @@ class KeyAlias: NSObject {
         }
     }
     
+    public func getAliases() -> Dictionary<Int64, [SourceEvent]> {
+        return aliases
+    }
+    
     public func updateConfig(config: AppConfig) {
         self.config = config
         self.updateAlias()
     }
     
     private func updateAlias() {
-        var aliases: Dictionary<Int64, [SourceEvent]> = [:]
+        var updated: Dictionary<Int64, [SourceEvent]> = [:]
         
         for a in config.getAppAliases(appName: currentApp) {
             if let evt = createRemapEvent(alias: a) {
-                if var v = aliases[evt.getKeyCode()] {
+                if var v = updated[evt.getKeyCode()] {
                     v.append(evt)
                 } else {
-                    aliases[evt.getKeyCode()] = [evt]
+                    updated[evt.getKeyCode()] = [evt]
                 }
             }
         }
         
-        self.aliases = aliases
+        aliases = updated
     }
 }

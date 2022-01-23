@@ -15,6 +15,7 @@ class KeyRemapper: NSObject {
     
     private let system: IOHIDEventSystemClient
     private let services: CFArray?
+    private var isPaused: Bool = false
         
     override init() {
         self.system = IOHIDEventSystemClientCreateSimpleClient(kCFAllocatorDefault)
@@ -28,7 +29,19 @@ class KeyRemapper: NSObject {
         }
     }
     
+    public func pause() {
+        isPaused = true
+    }
+    
+    public func resume(config: AppConfig) {
+        isPaused = false
+        remap(config: config)
+    }
+    
     public func updateConfig(config: AppConfig) {
+        if isPaused {
+            return
+        }
         remap(config: config)
     }
     

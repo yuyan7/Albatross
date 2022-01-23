@@ -10,7 +10,6 @@
 		50309B7A27960C7900938D1E /* AlbatrossApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50309B7927960C7900938D1E /* AlbatrossApp.swift */; };
 		50309B7E27960C7B00938D1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50309B7D27960C7B00938D1E /* Assets.xcassets */; };
 		50309B8127960C7B00938D1E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50309B8027960C7B00938D1E /* Preview Assets.xcassets */; };
-		50309B8627960C7B00938D1E /* Albatross.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 50309B8427960C7B00938D1E /* Albatross.xcdatamodeld */; };
 		50309B8E27960CB300938D1E /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50309B8D27960CB300938D1E /* KeyboardObserver.swift */; };
 		503CC0A52799ACF100C57566 /* RemapEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503CC0A42799ACF000C57566 /* RemapEvent.swift */; };
 		50FB24F2279C2EFD00A3736F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FB24F1279C2EFD00A3736F /* AppDelegate.swift */; };
@@ -20,6 +19,7 @@
 		50FB2501279C8B0900A3736F /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FB2500279C8B0900A3736F /* AppConfig.swift */; };
 		50FB2503279CA68700A3736F /* KeyRemapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FB2502279CA68700A3736F /* KeyRemapper.swift */; };
 		50FB2505279CACF300A3736F /* KeyAlias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FB2504279CACF300A3736F /* KeyAlias.swift */; };
+		50FB250A279DE35700A3736F /* AppTrusted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FB2509279DE35600A3736F /* AppTrusted.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +27,6 @@
 		50309B7927960C7900938D1E /* AlbatrossApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbatrossApp.swift; sourceTree = "<group>"; };
 		50309B7D27960C7B00938D1E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		50309B8027960C7B00938D1E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		50309B8527960C7B00938D1E /* Albatross.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Albatross.xcdatamodel; sourceTree = "<group>"; };
 		50309B8727960C7B00938D1E /* Albatross.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Albatross.entitlements; sourceTree = "<group>"; };
 		50309B8D27960CB300938D1E /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		503CC0A42799ACF000C57566 /* RemapEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemapEvent.swift; sourceTree = "<group>"; };
@@ -39,6 +38,7 @@
 		50FB2500279C8B0900A3736F /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		50FB2502279CA68700A3736F /* KeyRemapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyRemapper.swift; sourceTree = "<group>"; };
 		50FB2504279CACF300A3736F /* KeyAlias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAlias.swift; sourceTree = "<group>"; };
+		50FB2509279DE35600A3736F /* AppTrusted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTrusted.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,7 +76,6 @@
 				50309B7927960C7900938D1E /* AlbatrossApp.swift */,
 				50309B7D27960C7B00938D1E /* Assets.xcassets */,
 				50309B8727960C7B00938D1E /* Albatross.entitlements */,
-				50309B8427960C7B00938D1E /* Albatross.xcdatamodeld */,
 				50309B7F27960C7B00938D1E /* Preview Content */,
 				50309B8D27960CB300938D1E /* KeyboardObserver.swift */,
 				503CC0A42799ACF000C57566 /* RemapEvent.swift */,
@@ -87,6 +86,7 @@
 				50FB2500279C8B0900A3736F /* AppConfig.swift */,
 				50FB2502279CA68700A3736F /* KeyRemapper.swift */,
 				50FB2504279CACF300A3736F /* KeyAlias.swift */,
+				50FB2509279DE35600A3736F /* AppTrusted.swift */,
 			);
 			path = Albatross;
 			sourceTree = "<group>";
@@ -181,10 +181,10 @@
 				503CC0A52799ACF100C57566 /* RemapEvent.swift in Sources */,
 				50FB2503279CA68700A3736F /* KeyRemapper.swift in Sources */,
 				50FB24FC279C810300A3736F /* AppNotification.swift in Sources */,
-				50309B8627960C7B00938D1E /* Albatross.xcdatamodeld in Sources */,
 				50FB24FA279C80C900A3736F /* AppAlert.swift in Sources */,
 				50FB2505279CACF300A3736F /* KeyAlias.swift in Sources */,
 				50309B7A27960C7900938D1E /* AlbatrossApp.swift in Sources */,
+				50FB250A279DE35700A3736F /* AppTrusted.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,19 +405,6 @@
 			productName = Yams;
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		50309B8427960C7B00938D1E /* Albatross.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				50309B8527960C7B00938D1E /* Albatross.xcdatamodel */,
-			);
-			currentVersion = 50309B8527960C7B00938D1E /* Albatross.xcdatamodel */;
-			path = Albatross.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 50309B6E27960C7900938D1E /* Project object */;
 }
