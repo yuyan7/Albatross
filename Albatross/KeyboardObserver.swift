@@ -1,6 +1,6 @@
 //
-//  KeyRemap.swift
-//  albatross
+//  KeyboardObserver.swift
+//  Albatross
 //
 //  Created by Yoshiaki Sugimoto on 2022/01/18.
 //
@@ -8,10 +8,12 @@
 import Cocoa
 
 class KeyboardObserver: NSObject {
-    override init() {
-        super.init()
-        print("Constructor")
+    private var alias: KeyAlias
+    
+    init(alias: KeyAlias) {
+        self.alias = alias
     }
+
     
     public func start() {
         let observer = UnsafeMutableRawPointer(Unmanaged.passRetained(self).toOpaque())
@@ -51,9 +53,10 @@ class KeyboardObserver: NSObject {
     
     private func handleEvent(event: CGEvent, type: CGEventType) -> Unmanaged<CGEvent>? {
         if type == CGEventType.keyDown {
-            let keyCode = CGKeyCode(event.getIntegerValueField(.keyboardEventKeycode))
-            let flags = event.flags
-            print(keyCode, flags)
+            //let keyCode = CGKeyCode(event.getIntegerValueField(.keyboardEventKeycode))
+            //let flags = event.flags
+            //print(flags)
+            //print(keyCode)
             //switch keyCode {
             //case 0: // "a"
             //    event.setIntegerValueField(.keyboardEventKeycode, value: 11)

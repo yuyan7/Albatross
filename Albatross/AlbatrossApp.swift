@@ -9,30 +9,11 @@ import SwiftUI
 
 @main
 struct AlbatrossApp: App {
-    let persistenceController = PersistenceController.shared
-    let observer = KeyboardObserver()
-    let keymap = KeyMap()
-
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+   
     var body: some Scene {
-        WindowGroup {
+        Settings {
             EmptyView()
         }
-    }
-    
-    init() {
-        do {
-            try keymap.loadConfig()
-        } catch ConfigError.invalidJSON(let message) {
-            print(message)
-            exit(1)
-        } catch ConfigError.invalidValue(let message) {
-            print(message)
-            exit(1)
-        } catch {
-            print(error)
-            exit(1)
-        }
-        keymap.watchConfig()
-        observer.start()
     }
 }

@@ -8,26 +8,37 @@
 
 /* Begin PBXBuildFile section */
 		50309B7A27960C7900938D1E /* AlbatrossApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50309B7927960C7900938D1E /* AlbatrossApp.swift */; };
-		50309B7C27960C7900938D1E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50309B7B27960C7900938D1E /* ContentView.swift */; };
 		50309B7E27960C7B00938D1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50309B7D27960C7B00938D1E /* Assets.xcassets */; };
 		50309B8127960C7B00938D1E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50309B8027960C7B00938D1E /* Preview Assets.xcassets */; };
-		50309B8327960C7B00938D1E /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50309B8227960C7B00938D1E /* Persistence.swift */; };
 		50309B8627960C7B00938D1E /* Albatross.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 50309B8427960C7B00938D1E /* Albatross.xcdatamodeld */; };
 		50309B8E27960CB300938D1E /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50309B8D27960CB300938D1E /* KeyboardObserver.swift */; };
-		503CC0A3279881A000C57566 /* KeyMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503CC0A2279881A000C57566 /* KeyMap.swift */; };
+		503CC0A52799ACF100C57566 /* RemapEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503CC0A42799ACF000C57566 /* RemapEvent.swift */; };
+		50FB24F2279C2EFD00A3736F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FB24F1279C2EFD00A3736F /* AppDelegate.swift */; };
+		50FB24FA279C80C900A3736F /* AppAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FB24F9279C80C900A3736F /* AppAlert.swift */; };
+		50FB24FC279C810300A3736F /* AppNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FB24FB279C810300A3736F /* AppNotification.swift */; };
+		50FB24FF279C894800A3736F /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = 50FB24FE279C894800A3736F /* Yams */; };
+		50FB2501279C8B0900A3736F /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FB2500279C8B0900A3736F /* AppConfig.swift */; };
+		50FB2503279CA68700A3736F /* KeyRemapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FB2502279CA68700A3736F /* KeyRemapper.swift */; };
+		50FB2505279CACF300A3736F /* KeyAlias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FB2504279CACF300A3736F /* KeyAlias.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		50309B7627960C7900938D1E /* Albatross.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Albatross.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50309B7927960C7900938D1E /* AlbatrossApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbatrossApp.swift; sourceTree = "<group>"; };
-		50309B7B27960C7900938D1E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		50309B7D27960C7B00938D1E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		50309B8027960C7B00938D1E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		50309B8227960C7B00938D1E /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		50309B8527960C7B00938D1E /* Albatross.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Albatross.xcdatamodel; sourceTree = "<group>"; };
 		50309B8727960C7B00938D1E /* Albatross.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Albatross.entitlements; sourceTree = "<group>"; };
 		50309B8D27960CB300938D1E /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
-		503CC0A2279881A000C57566 /* KeyMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyMap.swift; sourceTree = "<group>"; };
+		503CC0A42799ACF000C57566 /* RemapEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemapEvent.swift; sourceTree = "<group>"; };
+		50FB24F1279C2EFD00A3736F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		50FB24F3279C306700A3736F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		50FB24F4279C32EE00A3736F /* Albatross-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Albatross-Bridging-Header.h"; sourceTree = "<group>"; };
+		50FB24F9279C80C900A3736F /* AppAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAlert.swift; sourceTree = "<group>"; };
+		50FB24FB279C810300A3736F /* AppNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNotification.swift; sourceTree = "<group>"; };
+		50FB2500279C8B0900A3736F /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
+		50FB2502279CA68700A3736F /* KeyRemapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyRemapper.swift; sourceTree = "<group>"; };
+		50FB2504279CACF300A3736F /* KeyAlias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAlias.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50FB24FF279C894800A3736F /* Yams in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,15 +72,21 @@
 		50309B7827960C7900938D1E /* Albatross */ = {
 			isa = PBXGroup;
 			children = (
+				50FB24F3279C306700A3736F /* Info.plist */,
 				50309B7927960C7900938D1E /* AlbatrossApp.swift */,
-				50309B7B27960C7900938D1E /* ContentView.swift */,
 				50309B7D27960C7B00938D1E /* Assets.xcassets */,
-				50309B8227960C7B00938D1E /* Persistence.swift */,
 				50309B8727960C7B00938D1E /* Albatross.entitlements */,
 				50309B8427960C7B00938D1E /* Albatross.xcdatamodeld */,
 				50309B7F27960C7B00938D1E /* Preview Content */,
 				50309B8D27960CB300938D1E /* KeyboardObserver.swift */,
-				503CC0A2279881A000C57566 /* KeyMap.swift */,
+				503CC0A42799ACF000C57566 /* RemapEvent.swift */,
+				50FB24F4279C32EE00A3736F /* Albatross-Bridging-Header.h */,
+				50FB24F1279C2EFD00A3736F /* AppDelegate.swift */,
+				50FB24F9279C80C900A3736F /* AppAlert.swift */,
+				50FB24FB279C810300A3736F /* AppNotification.swift */,
+				50FB2500279C8B0900A3736F /* AppConfig.swift */,
+				50FB2502279CA68700A3736F /* KeyRemapper.swift */,
+				50FB2504279CACF300A3736F /* KeyAlias.swift */,
 			);
 			path = Albatross;
 			sourceTree = "<group>";
@@ -97,6 +115,9 @@
 			dependencies = (
 			);
 			name = Albatross;
+			packageProductDependencies = (
+				50FB24FE279C894800A3736F /* Yams */,
+			);
 			productName = Albatross;
 			productReference = 50309B7627960C7900938D1E /* Albatross.app */;
 			productType = "com.apple.product-type.application";
@@ -125,6 +146,9 @@
 				Base,
 			);
 			mainGroup = 50309B6D27960C7900938D1E;
+			packageReferences = (
+				50FB24FD279C894800A3736F /* XCRemoteSwiftPackageReference "Yams" */,
+			);
 			productRefGroup = 50309B7727960C7900938D1E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -151,11 +175,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50FB2501279C8B0900A3736F /* AppConfig.swift in Sources */,
+				50FB24F2279C2EFD00A3736F /* AppDelegate.swift in Sources */,
 				50309B8E27960CB300938D1E /* KeyboardObserver.swift in Sources */,
-				50309B8327960C7B00938D1E /* Persistence.swift in Sources */,
+				503CC0A52799ACF100C57566 /* RemapEvent.swift in Sources */,
+				50FB2503279CA68700A3736F /* KeyRemapper.swift in Sources */,
+				50FB24FC279C810300A3736F /* AppNotification.swift in Sources */,
 				50309B8627960C7B00938D1E /* Albatross.xcdatamodeld in Sources */,
-				50309B7C27960C7900938D1E /* ContentView.swift in Sources */,
-				503CC0A3279881A000C57566 /* KeyMap.swift in Sources */,
+				50FB24FA279C80C900A3736F /* AppAlert.swift in Sources */,
+				50FB2505279CACF300A3736F /* KeyAlias.swift in Sources */,
 				50309B7A27960C7900938D1E /* AlbatrossApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -220,6 +248,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "$(SRCROOT)/Albatross/Albatross-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -274,6 +303,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "$(SRCROOT)/Albatross/Albatross-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
@@ -292,6 +322,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Albatross/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -319,6 +350,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Albatross/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -354,6 +386,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		50FB24FD279C894800A3736F /* XCRemoteSwiftPackageReference "Yams" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jpsim/Yams.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		50FB24FE279C894800A3736F /* Yams */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 50FB24FD279C894800A3736F /* XCRemoteSwiftPackageReference "Yams" */;
+			productName = Yams;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		50309B8427960C7B00938D1E /* Albatross.xcdatamodeld */ = {
