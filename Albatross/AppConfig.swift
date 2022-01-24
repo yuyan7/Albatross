@@ -8,20 +8,25 @@
 import Foundation
 import Yams
 
-let configPath = URL(string: NSHomeDirectory() + "/albatrosconfig.yaml")!
-
 struct Config: Codable {
-    let remaps: Dictionary<String, String>
-    let globalAliases: [Alias]
-    let appAliases: [AppAlias]
+    let remap: Dictionary<String, String>
+    let alias: AliasConfig
     
     init() {
-        remaps = [:]
-        globalAliases = []
-        appAliases = []
+        remap = [:]
+        alias = AliasConfig.init()
     }
 }
 
+struct AliasConfig: Codable {
+    let global: [Alias]
+    let apps: [AppAlias]
+    
+    init() {
+        global = []
+        apps = []
+    }
+}
 struct Alias: Codable {
     let from: [String]
     let to: [String]
@@ -33,11 +38,11 @@ struct Alias: Codable {
 }
 
 struct AppAlias: Codable {
-    let app: String
+    let name: String
     let aliases: [Alias]
     
     init() {
-        app = ""
+        name = ""
         aliases = []
     }
 }
@@ -57,9 +62,11 @@ class AppConfig: NSObject {
     
     override init() {
         self.config = Config()
-        
-        let document = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        self.filePath = document.appendingPathComponent("config/albatross.yml", isDirectory: false)
+        self.filePath = FileManager.default.homeDirectoryForCurrentUser
+            .appendingPathComponent(".config")
+            .appendingPathComponent("albatross")
+            .appendingPathComponent("config")
+            .appendingPathExtension("yml")
     }
     
     private func cancel() {
@@ -82,18 +89,18 @@ class AppConfig: NSObject {
     }
     
     public func getRemap() -> Dictionary<String, String> {
-        return config.remaps
+        return config.remap
     }
 
     public func getAppAliases(appName: String) -> [Alias] {
         var stack: Dictionary<String, Alias> = [:]
         
-        for a in config.globalAliases {
+        for a in config.alias.global {
             stack[a.from.joined(separator: "")] = a
         }
         
-        for app in config.appAliases {
-            if app.app != appName {
+        for app in config.alias.apps {
+            if app.name != appName {
                 continue
             }
             for a in app.aliases {
@@ -117,10 +124,11 @@ class AppConfig: NSObject {
             let decoder = YAMLDecoder()
             do {
                 let content = fp.readDataToEndOfFile()
+                print(content)
                 let decoded = try decoder.decode(Config.self, from: content)
                 config = decoded
             } catch {
-                throw ConfigError.invalid("Invalid Config" + error.localizedDescription)
+                throw ConfigError.invalid("Invalid Config: " + error.localizedDescription)
             }
         } else {
             throw ConfigError.openFail
@@ -165,113 +173,30 @@ class AppConfig: NSObject {
             return true
         }
         
-        print("File not found, create it")
-        
-        guard let document = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+        // Create app namespace config directory
+        do {
+            try FileManager.default.createDirectory(
+                at: filePath.deletingLastPathComponent(),
+                withIntermediateDirectories: true,
+                attributes: nil
+            )
+        } catch {
             return false
         }
-        let configDir = document.appendingPathComponent("config", isDirectory: true)
-        do {
-            try FileManager.default.createDirectory(at: configDir, withIntermediateDirectories: true, attributes: nil)
-        } catch {
+            
+        // And put initial configuration file from bundle resource
+        guard let asset = Bundle.main.url(forResource: "albatross", withExtension: "yml") else {
+            return false
+        }
+        guard let data = try? Data(contentsOf: asset) else {
             return false
         }
 
         return FileManager.default.createFile(
             atPath: filePath.path,
-            contents: configurationTemplate.data(using: .utf8),
+            contents: data,
             attributes: [
                 FileAttributeKey.posixPermissions: 0o644
             ])
     }
 }
-
-let configurationTemplate = """
-###
-### Albatross key remap configuration file
-###
-
-# In this app, meta keys define string constant as below:
-#
-# Esc: Escape
-# Tab: Tab
-# Command_L: Command Left
-# Command_R: Command Right
-# Del: Delete
-# Ins: Insert
-# Return: Return (Enter)
-# Up: Up Arrow
-# Right: Right Arrow
-# Down: Down Arrow
-# Left: Left Arrow
-# Alphabet: Special Key, switch input mode to alphabet
-# Kana: Special Key, switch input mode to kana
-# F1: F1
-# F2: F2
-# F3: F3
-# F4: F4
-# F5: F5
-# F6: F6
-# F7: F7
-# F8: F8
-# F9: F9
-# F10: F10
-# F11: F11
-# F12: F12
-# Shift_L: Shift Left
-# Shift_R: Shift Right
-# Option_L: Option Left
-# Option_R: Option Right
-# CapsLock: Caps Lock
-# Space: Space
-#
-# We do not support special meta keys like Vol up, Vol down, etc.
-
-# "remaps" field specifies physical key mapping using IOKit, value shold be [src]: [dest] format.
-# Key name is case insensitive (e.g "a" and "A" indicates the same key).
-#
-# For example:
-# ```
-# remaps:
-#   a: b  <- "a" key maps to "b"
-# ```
-#
-# Note that this setting is enable globally, all keyboard inputs always remaps for your setting.
-# All keys spec is described at https://developer.apple.com/library/archive/technotes/tn2450/_index.html#//apple_ref/doc/uid/DTS40017618-CH1-KEY_TABLE_USAGES
-remaps: {}
-
-# "globalAliases" field specifies alias mapping using CGEvent, simply specify keyboard alias globally.
-#
-# Importants
-#  * In this setting, key name is case sensitive. For example, CGEvent distiguishes "a" and "A" (differences shift key is pressed or not).
-#
-# For example
-# ```
-# globalAliases:
-#   - from: [Ctrl, a]    <- alias from Control + a
-#     to: [Command_L, a] <- alias to Command + a
-# ```
-#
-# Above setting set alias mapping from "Ctrl+a" to "Command+a".
-#
-globalAliases: []
-
-# "appAliases" field specifies alias mapping using CGEvent, specify keyboard alias correspond to the application.
-# You can list applications which you want to use alias.
-#
-# Importants
-#  * app name is actual process name which is defined app.localizedName. It it hard to find, but you may find via Activity Monitor app.
-#  * In this setting, key name is case sensitive. For example, CGEvent distiguishes "a" and "A" (differences shift key is pressed or not).
-#
-# For example
-# ```
-# appAliases:
-#  - app: "Google Chrome"   <- enable alias only for Google Chrome (must be an app.localizedName)
-#    aliaes:
-#      - from: [Ctrl, a]
-#        to: [Command_L, a]
-#
-# Above setting set alias mapping from "Ctrl+a" to "Command+a", will work as select all page by pressing "Ctrl+a" keys.
-#
-appAliases: []
-"""

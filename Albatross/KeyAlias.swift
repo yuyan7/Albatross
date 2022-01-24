@@ -17,7 +17,12 @@ class KeyAlias: NSObject {
         self.config = config
         super.init()
         
-        NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(handleActiveApplicationChange), name: NSWorkspace.didActivateApplicationNotification, object: nil)
+        NSWorkspace.shared.notificationCenter.addObserver(
+            self,
+            selector: #selector(handleActiveApplicationChange),
+            name: NSWorkspace.didActivateApplicationNotification,
+            object: nil
+        )
     }
     
     @objc func handleActiveApplicationChange(_ notification: NSNotification) {

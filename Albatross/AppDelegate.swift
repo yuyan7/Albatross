@@ -33,7 +33,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         statusItem.menu = menu
         menu.addItem(withTitle: "Edit Remap", action: #selector(AppDelegate.config(_:)), keyEquivalent: "")
-        menu.addItem(NSMenuItem.separator())
         menu.addItem(withTitle: isPauseRemap ? "✓ Pause Remap" : "Pause Remap", action: #selector(AppDelegate.pause(_:)), keyEquivalent: "")
         menu.addItem(NSMenuItem.separator())
         menu.addItem(withTitle: "Quit Albatross", action: #selector(AppDelegate.quit(_:)), keyEquivalent: "")
@@ -84,9 +83,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         isPauseRemap ? keyRemapper.pause() : keyRemapper.resume(config: appConfig)
         isPauseRemap ? keyboardObserver.pause() : keyboardObserver.resume()
 
-        menu.removeItem(at: 2)
-        let pauseText = isPauseRemap ? "✓ Pause Remap" : "Pause Remap"
-        menu.insertItem(withTitle: pauseText, action: #selector(AppDelegate.pause(_:)), keyEquivalent: "", at: 2)
+        menu.removeItem(at: 1)
+        let pauseText = isPauseRemap ? "✓ Pausing Remap" : "Pause Remap"
+        menu.insertItem(withTitle: pauseText, action: #selector(AppDelegate.pause(_:)), keyEquivalent: "", at: 1)
 
         AppNotification.display(body: isPauseRemap ? "KeyRemap is paused" : "KeyRemap is resumed")
     }
