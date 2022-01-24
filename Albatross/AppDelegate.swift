@@ -27,7 +27,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         if let button = statusItem.button {
-            //button.title = "H"
             button.image = NSImage(named: NSImage.Name("AppIcon-Mono"))
             button.highlight(false)
         }

@@ -136,10 +136,7 @@ class AppConfig: NSObject {
     }
     
     public func watch(callback: @escaping (AppConfig) -> Void) {
-        self.cancel()
-        print("watch start: \(filePath.path)")
         let queue = DispatchQueue.global(qos: .default)
-            
         let fd = open(filePath.path, O_EVTONLY)
         
         // We need to monitor multiple file change events, .write and .rename because:
@@ -148,12 +145,12 @@ class AppConfig: NSObject {
         for event in [DispatchSource.FileSystemEvent.write, DispatchSource.FileSystemEvent.rename] {
             let source = DispatchSource.makeFileSystemObjectSource(fileDescriptor: fd, eventMask: event, queue: queue)
             source.setEventHandler(handler: { () -> Void in
-                print("event fired for \(event)")
                 // Need a bit delay to reload config after file change event finished
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     do {
                         try self.load()
                         callback(self)
+                        self.cancel()
                         self.watch(callback: callback)
                     } catch {
                         AppNotification.display(body: "Configuration did not update because invalid setting")
