@@ -6,9 +6,11 @@
 //
 
 import Cocoa
-
+import ServiceManagement
 
 var statusItem = NSStatusBar.system.statusItem(withLength: CGFloat(NSStatusItem.variableLength))
+let LAUNCH_AT_LOGIN_KEY = "LaunchAtLogin"
+let LAUNCH_HELPER_IDENTIFIER = "io.github.ysugimoto.AlbatrossLaunchAtLogin"
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     
@@ -18,11 +20,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private let appConfig = AppConfig()
     private let menu: NSMenu = NSMenu()
     private var isPauseRemap = false
+    private var isLaunchAtLogin: Bool
     
     override init() {
         keyRemapper = KeyRemapper()
         keyAlias = KeyAlias(config: appConfig)
         keyboardObserver = KeyboardObserver(alias: keyAlias)
+        isLaunchAtLogin = UserDefaults.standard.bool(forKey: LAUNCH_AT_LOGIN_KEY)
+        print(isLaunchAtLogin)
+
     }
     
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -31,6 +37,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.highlight(false)
         }
         statusItem.menu = menu
+        menu.addItem(withTitle: isLaunchAtLogin ? "✓ Launch At Login" : "Launch At Login", action: #selector(AppDelegate.launchAtLogin(_:)), keyEquivalent: "")
+        menu.addItem(NSMenuItem.separator())
         menu.addItem(withTitle: "Edit Remap", action: #selector(AppDelegate.config(_:)), keyEquivalent: "")
         menu.addItem(withTitle: isPauseRemap ? "✓ Pause Remap" : "Pause Remap", action: #selector(AppDelegate.pause(_:)), keyEquivalent: "")
         menu.addItem(NSMenuItem.separator())
@@ -64,6 +72,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
+    @IBAction func launchAtLogin(_ sender: NSButton) {
+        isLaunchAtLogin = !isLaunchAtLogin
+        
+        if !SMLoginItemSetEnabled(LAUNCH_HELPER_IDENTIFIER as CFString, isLaunchAtLogin) {
+            AppAlert.display(message: "Failed to set launchLogin")
+            return
+        }
+        
+        UserDefaults.standard.set(isLaunchAtLogin, forKey: LAUNCH_AT_LOGIN_KEY)
+        menu.removeItem(at: 0)
+        let text = isLaunchAtLogin ? "✓ Launch At Login" : "Launch At Login"
+        menu.insertItem(withTitle: text, action: #selector(AppDelegate.launchAtLogin(_:)), keyEquivalent: "", at: 0)
+    }
+    
     @IBAction func quit(_ sender: NSButton) {
         NSApplication.shared.terminate(self)
     }
@@ -82,9 +104,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         isPauseRemap ? keyRemapper.pause() : keyRemapper.resume(config: appConfig)
         isPauseRemap ? keyboardObserver.pause() : keyboardObserver.resume()
 
-        menu.removeItem(at: 1)
+        menu.removeItem(at: 3)
         let pauseText = isPauseRemap ? "✓ Pausing Remap" : "Pause Remap"
-        menu.insertItem(withTitle: pauseText, action: #selector(AppDelegate.pause(_:)), keyEquivalent: "", at: 1)
+        menu.insertItem(withTitle: pauseText, action: #selector(AppDelegate.pause(_:)), keyEquivalent: "", at: 3)
 
         AppNotification.display(body: isPauseRemap ? "KeyRemap is paused" : "KeyRemap is resumed")
     }
