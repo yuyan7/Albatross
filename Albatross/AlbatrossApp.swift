@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+func print(items: Any..., separator: String = " ", terminator: String = "\n") {
+    #if DEBUG
+        Swift.print(items[0], separator: separator, terminator: terminator)
+    #endif
+}
+
 @main
 struct AlbatrossApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
