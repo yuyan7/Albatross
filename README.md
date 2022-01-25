@@ -1,5 +1,8 @@
 [Alternative Japanese README](https://github.com/ysugimoto/Albatross/blob/master/README-JP.md)
 
+
+![albatross-middle](https://user-images.githubusercontent.com/1000401/151051494-eba3d68b-fc0e-49bf-a769-8f5bd9eade7b.png)
+
 # Albatross
 
 Albatross is simple key remap application for macos.
