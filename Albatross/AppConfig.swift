@@ -127,7 +127,6 @@ class AppConfig: NSObject {
             let decoder = YAMLDecoder()
             do {
                 let content = fp.readDataToEndOfFile()
-                print(content)
                 let decoded = try decoder.decode(Config.self, from: content)
                 config = decoded
             } catch {
