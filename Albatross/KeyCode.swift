@@ -85,7 +85,7 @@ let keyCodeMap: [String: (Int64, Bool)] = [
     "Del": (117, false),
     "Space": (49, false),
     
-    // Meta Keys, following keys could not trap on keyDown event, need trap in flagChanged event instead
+    // Meta Keys, could not trap on keyDown event, need trap in flagsChanged event instead
     "Command_L": (54, false),
     "Command_R": (55, false),
     "Option_L": (61, false),
@@ -155,7 +155,7 @@ let metaKeyFlgas: [Int64: UInt64] = [
 ]
 
 // In source event comparison of upper case character like "A",
-// We don't care which shift key is pressed
+// we don't care which shift key is pressed
 let bothShiftKeyFlags: UInt64 = 0x020006
 
 func getFlagsForKeyCode(keyCode: Int64) -> UInt64 {

@@ -8,7 +8,7 @@
 import SwiftUI
 
 func print(items: Any..., separator: String = " ", terminator: String = "\n") {
-    #if DEBUG
+    #if __DEBUG__
         Swift.print(items[0], separator: separator, terminator: terminator)
     #endif
 }

@@ -28,9 +28,7 @@ class KeyboardObserver: NSObject {
     }
     
     public func start() throws {
-        let observer = UnsafeMutableRawPointer(Unmanaged.passRetained(self).toOpaque())
-        
-        guard let event = CGEvent.tapCreate(
+        guard let tap = CGEvent.tapCreate(
             tap: .cgSessionEventTap,
             place: .headInsertEventTap,
             options: .defaultTap,
@@ -39,32 +37,32 @@ class KeyboardObserver: NSObject {
                 (1 << CGEventType.keyDown.rawValue) |
                 (1 << CGEventType.flagsChanged.rawValue)
             ),
-            callback: { (_: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?
+            callback: { (_: CGEventTapProxy, type: CGEventType, event: CGEvent, ref: UnsafeMutableRawPointer?
             ) -> Unmanaged<CGEvent>? in
                 // If event refernece comes from our observer handle it
-                if let observer = refcon {
+                if let observer = ref {
                     let this = Unmanaged<KeyboardObserver>.fromOpaque(observer).takeUnretainedValue()
                     
                     // If remapping is paused, do nothing
                     if this.isPaused {
                         return Unmanaged.passUnretained(event)
                     }
-                    
+                    // Handle key remap event
                     return this.handleEvent(event: event, type: type)
                 }
                 return Unmanaged.passUnretained(event)
             },
-            userInfo: observer
+            userInfo: UnsafeMutableRawPointer(Unmanaged.passRetained(self).toOpaque())
         ) else {
             throw KeyboardOberserError.startFail
         }
         
         CFRunLoopAddSource(
             CFRunLoopGetCurrent(),
-            CFMachPortCreateRunLoopSource(kCFAllocatorDefault, event, 0),
+            CFMachPortCreateRunLoopSource(kCFAllocatorDefault, tap, 0),
             .commonModes
         )
-        CGEvent.tapEnable(tap: event, enable: true)
+        CGEvent.tapEnable(tap: tap, enable: true)
         CFRunLoopRun()
     }
     
@@ -72,21 +70,22 @@ class KeyboardObserver: NSObject {
         switch type {
         case CGEventType.keyDown:
             print("keydown", event.getIntegerValueField(.keyboardEventKeycode), event.flags)
-            if let converted = tryConvertEvent(event: event) {
+            if let converted = convertEvent(event: event) {
                 return Unmanaged.passUnretained(converted)
             }
         case CGEventType.keyUp:
             print("keyup", event.getIntegerValueField(.keyboardEventKeycode), event.flags)
-            if let converted = tryConvertEvent(event: event) {
+            if let converted = convertEvent(event: event) {
                 return Unmanaged.passUnretained(converted)
             }
         case CGEventType.flagsChanged:
             print("meta", event.getIntegerValueField(.keyboardEventKeycode), event.flags)
+            
             // If meta key is pressed, we should handle in this case but we need to consider combination key remapping.
             // On combination key remapping, it should be handled in keyDown and keyUp case
             // so this case treats single metaKey is pressed and handle only keyUp case
             if event.flags.rawValue != defaultCGEventFlags {
-                if let converted = tryConvertEvent(event: event) {
+                if let converted = convertEvent(event: event) {
                     // If metakey event is converted, need to emurate keyDown/keyUp event to tap
                     postEmuratedEvent(keyCode: converted.getIntegerValueField(.keyboardEventKeycode))
                     return Unmanaged.passUnretained(event)
@@ -98,7 +97,7 @@ class KeyboardObserver: NSObject {
         return Unmanaged.passUnretained(event)
     }
     
-    private func tryConvertEvent(event: CGEvent) -> CGEvent? {
+    private func convertEvent(event: CGEvent) -> CGEvent? {
         let aliases = alias.getAliases()
         print(aliases, event.getIntegerValueField(.keyboardEventKeycode))
         

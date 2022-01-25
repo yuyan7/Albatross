@@ -27,8 +27,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         keyAlias = KeyAlias(config: appConfig)
         keyboardObserver = KeyboardObserver(alias: keyAlias)
         isLaunchAtLogin = UserDefaults.standard.bool(forKey: launchAtLoginKey)
-        print(isLaunchAtLogin)
-
     }
     
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -87,8 +85,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         UserDefaults.standard.set(isLaunchAtLogin, forKey: launchAtLoginKey)
         menu.removeItem(at: 0)
-        let text = isLaunchAtLogin ? "✓ Launch At Login" : "Launch At Login"
-        menu.insertItem(withTitle: text, action: #selector(AppDelegate.launchAtLogin(_:)), keyEquivalent: "", at: 0)
+        menu.insertItem(withTitle: isLaunchAtLogin ? "✓ Launch At Login" : "Launch At Login",
+                        action: #selector(AppDelegate.launchAtLogin(_:)),
+                        keyEquivalent: "",
+                        at: 0)
     }
     
     @IBAction func quit(_ sender: NSButton) {
@@ -106,13 +106,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         isPauseRemap = !isPauseRemap
         
         // pause remap/alias if flag turns on
-        isPauseRemap ? keyRemapper.pause() : keyRemapper.resume(config: appConfig)
-        isPauseRemap ? keyboardObserver.pause() : keyboardObserver.resume()
+        if isPauseRemap {
+            keyRemapper.pause()
+            keyboardObserver.pause()
+        } else {
+            keyRemapper.resume(config: appConfig)
+            keyboardObserver.resume()
+        }
 
         menu.removeItem(at: 3)
-        let pauseText = isPauseRemap ? "✓ Pausing Remap" : "Pause Remap"
-        menu.insertItem(withTitle: pauseText, action: #selector(AppDelegate.pause(_:)), keyEquivalent: "", at: 3)
-
+        menu.insertItem(withTitle: isPauseRemap ? "✓ Pausing Remap" : "Pause Remap",
+                        action: #selector(AppDelegate.pause(_:)),
+                        keyEquivalent: "",
+                        at: 3)
         AppNotification.display(body: isPauseRemap ? "KeyRemap is paused" : "KeyRemap is resumed")
     }
     

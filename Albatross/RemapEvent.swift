@@ -51,6 +51,7 @@ class SourceEvent: KeyEvent {
         }
         
         let flag = getFlag()
+        
         if (event.flags.rawValue & flag) == 0 {
             print("flag mismatch", event.flags, flag)
             return false
@@ -66,13 +67,10 @@ class SourceEvent: KeyEvent {
         // On the other hand, Shift, Option, Command keys have left and right keys
         // so we need to compare with lowest 8 bits to distinguish them.
         if ((event.flags.rawValue & 0xFF) & (flag & 0xFF)) == 0 {
-            if (flag >> 16) == 0x04 { // Control combination only
-                return true
-            } else if (flag >> 16) == 0x01 { // CapsLock combination only
+            if (flag >> 16) == 0x04 || (flag >> 16) == 0x01 { // Control or CapsLock comparison
                 return true
             }
             print("left/right mismatch")
-
             return false
         }
         
