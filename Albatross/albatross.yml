@@ -77,8 +77,9 @@ remap: {}
 #       to: [Command_L, a]
 #   apps:
 #     - name: "Google Chrome"
-#     - from: [Esc]
-#       to: [Command_L, n]
+#       alias:
+#         - from: [Esc]
+#           to: [Command_L, n]
 # ```
 #
 # Above setting registers:

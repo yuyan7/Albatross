@@ -40,11 +40,11 @@ struct Alias: Codable {
 
 struct AppAlias: Codable {
     let name: String
-    let aliases: [Alias]
+    let alias: [Alias]
     
     init() {
         name = ""
-        aliases = []
+        alias = []
     }
 }
 
@@ -105,7 +105,7 @@ class AppConfig: NSObject {
             if app.name != appName {
                 continue
             }
-            for alias in app.aliases {
+            for alias in app.alias {
                 stack[alias.from.joined(separator: "")] = alias
             }
         }
@@ -126,9 +126,7 @@ class AppConfig: NSObject {
         if let fp = FileHandle(forReadingAtPath: filePath.path) {
             let decoder = YAMLDecoder()
             do {
-                let content = fp.readDataToEndOfFile()
-                let decoded = try decoder.decode(Config.self, from: content)
-                config = decoded
+                config = try decoder.decode(Config.self, from: fp.readDataToEndOfFile())
             } catch {
                 throw ConfigError.invalid("Invalid Config: " + error.localizedDescription)
             }
@@ -151,6 +149,7 @@ class AppConfig: NSObject {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     do {
                         try self.load()
+                        print("Configuration reloaded successfully.")
                         callback(self)
                         self.cancel()
                         self.watch(callback: callback)
