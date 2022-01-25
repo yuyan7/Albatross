@@ -1,0 +1,7 @@
+included:
+  - Albatross
+  - AlbatrossLaunchAtLogin
+
+disabled_rules:
+  - trailing_whitespace
+  - trailing_comma

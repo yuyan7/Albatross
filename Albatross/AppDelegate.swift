@@ -9,8 +9,8 @@ import Cocoa
 import ServiceManagement
 
 var statusItem = NSStatusBar.system.statusItem(withLength: CGFloat(NSStatusItem.variableLength))
-let LAUNCH_AT_LOGIN_KEY = "LaunchAtLogin"
-let LAUNCH_HELPER_IDENTIFIER = "io.github.ysugimoto.AlbatrossLaunchAtLogin"
+let launchAtLoginKey = "LaunchAtLogin"
+let launchHelperAppIdentifier = "io.github.ysugimoto.AlbatrossLaunchAtLogin"
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     
@@ -26,7 +26,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         keyRemapper = KeyRemapper()
         keyAlias = KeyAlias(config: appConfig)
         keyboardObserver = KeyboardObserver(alias: keyAlias)
-        isLaunchAtLogin = UserDefaults.standard.bool(forKey: LAUNCH_AT_LOGIN_KEY)
+        isLaunchAtLogin = UserDefaults.standard.bool(forKey: launchAtLoginKey)
         print(isLaunchAtLogin)
 
     }
@@ -37,10 +37,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.highlight(false)
         }
         statusItem.menu = menu
-        menu.addItem(withTitle: isLaunchAtLogin ? "✓ Launch At Login" : "Launch At Login", action: #selector(AppDelegate.launchAtLogin(_:)), keyEquivalent: "")
+        menu.addItem(withTitle: isLaunchAtLogin ? "✓ Launch At Login" : "Launch At Login",
+                     action: #selector(AppDelegate.launchAtLogin(_:)),
+                     keyEquivalent: "")
         menu.addItem(NSMenuItem.separator())
         menu.addItem(withTitle: "Edit Remap", action: #selector(AppDelegate.config(_:)), keyEquivalent: "")
-        menu.addItem(withTitle: isPauseRemap ? "✓ Pause Remap" : "Pause Remap", action: #selector(AppDelegate.pause(_:)), keyEquivalent: "")
+        menu.addItem(withTitle: isPauseRemap ? "✓ Pause Remap" : "Pause Remap",
+                     action: #selector(AppDelegate.pause(_:)),
+                     keyEquivalent: "")
         menu.addItem(NSMenuItem.separator())
         menu.addItem(withTitle: "Quit Albatross", action: #selector(AppDelegate.quit(_:)), keyEquivalent: "")
         
@@ -54,7 +58,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 NSApplication.shared.terminate(self)
             }
             
-            self.appConfig.watch() { config in
+            self.appConfig.watch { config in
                 self.keyRemapper.updateConfig(config: config)
                 self.keyAlias.updateConfig(config: config)
             }
@@ -66,7 +70,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             do {
                 try self.keyboardObserver.start()
             } catch {
-                AppAlert.display(message: "Appication boot faild", information: "Failed to observer keyboard input event")
+                AppAlert.display(message: "Appication boot faild",
+                                 information: "Failed to observer keyboard input event")
                 NSApplication.shared.terminate(self)
             }
         }
@@ -75,12 +80,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func launchAtLogin(_ sender: NSButton) {
         isLaunchAtLogin = !isLaunchAtLogin
         
-        if !SMLoginItemSetEnabled(LAUNCH_HELPER_IDENTIFIER as CFString, isLaunchAtLogin) {
+        if !SMLoginItemSetEnabled(launchHelperAppIdentifier as CFString, isLaunchAtLogin) {
             AppAlert.display(message: "Failed to set launchLogin")
             return
         }
         
-        UserDefaults.standard.set(isLaunchAtLogin, forKey: LAUNCH_AT_LOGIN_KEY)
+        UserDefaults.standard.set(isLaunchAtLogin, forKey: launchAtLoginKey)
         menu.removeItem(at: 0)
         let text = isLaunchAtLogin ? "✓ Launch At Login" : "Launch At Login"
         menu.insertItem(withTitle: text, action: #selector(AppDelegate.launchAtLogin(_:)), keyEquivalent: "", at: 0)
@@ -91,9 +96,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func config(_ sender: NSButton) {
-        let pb = NSPasteboard.general
-        pb.clearContents()
-        pb.setString(appConfig.getFilePath(), forType: .string)
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.setString(appConfig.getFilePath(), forType: .string)
         AppNotification.display(body: "Copied Configuration file path.\nModify configuration with your favorite editor")
     }
     

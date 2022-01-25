@@ -21,10 +21,10 @@ class KeyRemapper: NSObject {
         self.system = IOHIDEventSystemClientCreateSimpleClient(kCFAllocatorDefault)
         self.services = IOHIDEventSystemClientCopyServices(system)
 
-        for i: UInt64 in 0x04 ..< 0xF0 {
-            let o: UInt64 = i | keyboardBit
+        for i: UInt64 in 0x04 ..< 0xF0 {  // swiftlint:disable:this identifier_name
+            let original: UInt64 = i | keyboardBit
             defaults.append([
-                kIOHIDKeyboardModifierMappingSrcKey: o, kIOHIDKeyboardModifierMappingDstKey: o
+                kIOHIDKeyboardModifierMappingSrcKey: original, kIOHIDKeyboardModifierMappingDstKey: original
             ])
         }
     }
@@ -65,27 +65,39 @@ class KeyRemapper: NSObject {
             return
         }
         
-        for service in services as! [IOHIDServiceClient] {
-            if((IOHIDServiceClientConformsTo(service, UInt32((kHIDPage_GenericDesktop)), UInt32(kHIDUsage_GD_Keyboard))) != 0) {
-                IOHIDServiceClientSetProperty(service, kIOHIDUserKeyUsageMapKey as CFString, remaps as CFArray)
+        guard let serviceClients = services as? [IOHIDServiceClient] else {
+            return
+        }
+        for serviceClient in serviceClients {
+            if (IOHIDServiceClientConformsTo(
+                serviceClient,
+                UInt32((kHIDPage_GenericDesktop)),
+                UInt32(kHIDUsage_GD_Keyboard))
+            ) != 0 {
+                IOHIDServiceClientSetProperty(serviceClient, kIOHIDUserKeyUsageMapKey as CFString, remaps as CFArray)
             }
         }
-        
-        
     }
     
     public func restore() {
-        print("Restore key remap")
-        for service in services as! [IOHIDServiceClient] {
-            if((IOHIDServiceClientConformsTo(service, UInt32((kHIDPage_GenericDesktop)), UInt32(kHIDUsage_GD_Keyboard))) != 0) {
-                IOHIDServiceClientSetProperty(service, kIOHIDUserKeyUsageMapKey as CFString, defaults as CFArray)
+        guard let serviceClients = services as? [IOHIDServiceClient] else {
+            return
+        }
+        for serviceClient in serviceClients {
+            if (IOHIDServiceClientConformsTo(
+                serviceClient,
+                UInt32((kHIDPage_GenericDesktop)),
+                UInt32(kHIDUsage_GD_Keyboard))
+            ) != 0 {
+                IOHIDServiceClientSetProperty(serviceClient, kIOHIDUserKeyUsageMapKey as CFString, defaults as CFArray)
             }
         }
     }
 }
 
+// swiftlint:disable:next line_length
 // https://developer.apple.com/library/archive/technotes/tn2450/_index.html#//apple_ref/doc/uid/DTS40017618-CH1-KEY_TABLE_USAGES
-let remapKeyTable: Dictionary<String, UInt64> = [
+let remapKeyTable: [String: UInt64] = [
     "a": 0x04, "A": 0x04,
     "b": 0x05, "B": 0x05,
     "c": 0x06, "C": 0x06,
@@ -148,15 +160,15 @@ let remapKeyTable: Dictionary<String, UInt64> = [
     "Right": 0x4F,
     "Down": 0x51,
     "Left": 0x50,
-    "F1":  0x3A,
-    "F2":  0x3B,
-    "F3":  0x3C,
-    "F4":  0x3D,
-    "F5":  0x3E,
-    "F6":  0x3F,
-    "F7":  0x40,
-    "F8":  0x41,
-    "F9":  0x42,
+    "F1": 0x3A,
+    "F2": 0x3B,
+    "F3": 0x3C,
+    "F4": 0x3D,
+    "F5": 0x3E,
+    "F6": 0x3F,
+    "F7": 0x40,
+    "F8": 0x41,
+    "F9": 0x42,
     "F10": 0x43,
     "F11": 0x44,
     "F12": 0x45,

@@ -23,4 +23,3 @@ struct AlbatrossApp: App {
         }
     }
 }
-

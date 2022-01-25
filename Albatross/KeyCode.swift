@@ -7,10 +7,10 @@
 
 import Foundation
 
-let UNKNOWN_KEYCODE: Int64 = -1
-let DEFAULT_CGEVENT_FLAGS: UInt64 = 256
+let unknownKeyCode: Int64 = -1
+let defaultCGEventFlags: UInt64 = 256
 
-let keyCodeMap: Dictionary<String, (Int64, Bool)> = [
+let keyCodeMap: [String: (Int64, Bool)] = [
     // Input keys, typically can trap on keyDown/keyUp event
     "a": (0, false), "A": (0, true),
     "b": (11, false), "B": (11, true),
@@ -93,7 +93,7 @@ let keyCodeMap: Dictionary<String, (Int64, Bool)> = [
     "Shift_L": (56, false),
     "Shift_R": (60, false),
     "CapsLock": (57, false),
-    "Control": (59, false)
+    "Control": (59, false),
 ]
 
 /*
@@ -121,7 +121,8 @@ For example:
   - To detect Command key is pressed, compare 16-24 bit e.g ((event.flags.rawValue >> 16) & 0x10) > 0
   - To detect Left Command key is pressed, compare lowest 8 bit e.g ((event.flags.rawValue) & 0x10) > 0
 
-Note that following values are removed 8-16 bits in order to be simplified so need to add DEFAULT_CGEVENT_FLAGS for actual use.
+Note that following values are removed 8-16 bits in order to be simplified,
+so need to add DEFAULT_CGEVENT_FLAGS for actual use.
 See getFlagsForKeyCode() function.
  
 ```
@@ -130,7 +131,7 @@ if let v = metaKeyMap["Command_L"] {
 }
 ```
 */
-let metaKeyMap: Dictionary<String, UInt64> = [
+let metaKeyMap: [String: UInt64] = [
     "Command_L": 0x100010,
     "Command_R": 0x100008,
     "Option_L": 0x080040,
@@ -142,7 +143,7 @@ let metaKeyMap: Dictionary<String, UInt64> = [
 ]
 
 // Map CGEventFlags for key code
-let metaKeyFlgas: Dictionary<Int64, UInt64> = [
+let metaKeyFlgas: [Int64: UInt64] = [
     54: 0x100010,
     55: 0x100008,
     61: 0x080040,
@@ -155,11 +156,11 @@ let metaKeyFlgas: Dictionary<Int64, UInt64> = [
 
 // In source event comparison of upper case character like "A",
 // We don't care which shift key is pressed
-let BOTH_SHIFT_KEY: UInt64 = 0x020006
+let bothShiftKeyFlags: UInt64 = 0x020006
 
 func getFlagsForKeyCode(keyCode: Int64) -> UInt64 {
-    if let v = metaKeyFlgas[keyCode] {
-        return v | DEFAULT_CGEVENT_FLAGS
+    if let v = metaKeyFlgas[keyCode] {  // swiftlint:disable:this identifier_name
+        return v | defaultCGEventFlags
     }
-    return DEFAULT_CGEVENT_FLAGS
+    return defaultCGEventFlags
 }

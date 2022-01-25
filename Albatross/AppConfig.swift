@@ -9,7 +9,7 @@ import Foundation
 import Yams
 
 struct Config: Codable {
-    let remap: Dictionary<String, String>
+    let remap: [String: String]
     let alias: AliasConfig
     
     init() {
@@ -29,6 +29,7 @@ struct AliasConfig: Codable {
 }
 struct Alias: Codable {
     let from: [String]
+    // swiftlint:disable:next identifier_name
     let to: [String]
     
     init() {
@@ -56,7 +57,7 @@ enum ConfigError: Error {
 class AppConfig: NSObject {
     private let filePath: URL
     private var config: Config
-    private var fd: CInt?
+    private var fileDescriptor: CInt?
     private var sources: [DispatchSourceFileSystemObject] = []
     private var subscribers: [(AppConfig) -> Void] = []
     
@@ -73,11 +74,12 @@ class AppConfig: NSObject {
         for source in sources {
             source.cancel()
         }
-        if let fd = self.fd {
+        // swiftlint:disable:next identifier_name
+        if let fd = fileDescriptor {
             close(fd)
         }
         sources = []
-        fd = nil
+        fileDescriptor = nil
     }
     
     public func subscribe(callback: @escaping (AppConfig) -> Void) {
@@ -88,23 +90,23 @@ class AppConfig: NSObject {
         return filePath.path
     }
     
-    public func getRemap() -> Dictionary<String, String> {
+    public func getRemap() -> [String: String] {
         return config.remap
     }
 
     public func getAppAliases(appName: String) -> [Alias] {
-        var stack: Dictionary<String, Alias> = [:]
+        var stack: [String: Alias] = [:]
         
-        for a in config.alias.global {
-            stack[a.from.joined(separator: "")] = a
+        for alias in config.alias.global {
+            stack[alias.from.joined(separator: "")] = alias
         }
         
         for app in config.alias.apps {
             if app.name != appName {
                 continue
             }
-            for a in app.aliases {
-                stack[a.from.joined(separator: "")] = a
+            for alias in app.aliases {
+                stack[alias.from.joined(separator: "")] = alias
             }
         }
         
@@ -120,6 +122,7 @@ class AppConfig: NSObject {
             throw ConfigError.createFail
         }
        
+        // swiftlint:disable:next identifier_name
         if let fp = FileHandle(forReadingAtPath: filePath.path) {
             let decoder = YAMLDecoder()
             do {
@@ -137,7 +140,7 @@ class AppConfig: NSObject {
     
     public func watch(callback: @escaping (AppConfig) -> Void) {
         let queue = DispatchQueue.global(qos: .default)
-        let fd = open(filePath.path, O_EVTONLY)
+        let fd = open(filePath.path, O_EVTONLY)  // swiftlint:disable:this identifier_name
         
         // We need to monitor multiple file change events, .write and .rename because:
         // on Vim, file editing is processed with move (using swap file) so rename event will be fired
@@ -162,7 +165,7 @@ class AppConfig: NSObject {
             self.sources.append(source)
         }
        
-        self.fd = fd
+        self.fileDescriptor = fd
     }
     
     private func checkConfigFile() -> Bool {
