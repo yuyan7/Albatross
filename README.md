@@ -14,6 +14,10 @@ In JIS keyboard, some keycode may be different from US-ANSI one but we don't hav
 
 We welcome to use this app and report to us!
 
+## Support OS
+
+- macos 11.6.1 Big Sur
+
 ## Installation
 
 This app is unsigned so you can get it from [release](https://github.com/ysugimoto/Albatross/releases) page and put app into `Application` folder.
