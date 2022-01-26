@@ -24,12 +24,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         if !running && !active {
-            if let appUrl = URL(string: String(format: "%s://", mainAppIdentifier)) {
+            if let appUrl = URL(string: "\(mainAppIdentifier)://") {
+                print(appUrl.path)
                 NSWorkspace.shared.open(appUrl)
             }
         }
         
         NSApp.terminate(nil)
     }
-
 }

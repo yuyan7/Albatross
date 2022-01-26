@@ -16,7 +16,7 @@ We welcome to use this app and report to us!
 
 ## Installation
 
-This app is unsigned so you can get it from [release](https://github.com/ysugimoto/Albatross/releases) page.
+This app is unsigned so you can get it from [release](https://github.com/ysugimoto/Albatross/releases) page and put app into `Application` folder.
 
 After launch this app, you need to allow an Accessibility permission on your machine, please allow this app.
 

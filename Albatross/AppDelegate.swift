@@ -35,6 +35,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.highlight(false)
         }
         statusItem.menu = menu
+        menu.addItem(withTitle: "Version: v\(appVersion())", action: nil, keyEquivalent: "")
         menu.addItem(withTitle: isLaunchAtLogin ? "✓ Launch At Login" : "Launch At Login",
                      action: #selector(AppDelegate.launchAtLogin(_:)),
                      keyEquivalent: "")
@@ -84,11 +85,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         UserDefaults.standard.set(isLaunchAtLogin, forKey: launchAtLoginKey)
-        menu.removeItem(at: 0)
+        menu.removeItem(at: 1)
         menu.insertItem(withTitle: isLaunchAtLogin ? "✓ Launch At Login" : "Launch At Login",
                         action: #selector(AppDelegate.launchAtLogin(_:)),
                         keyEquivalent: "",
-                        at: 0)
+                        at: 1)
     }
     
     @IBAction func quit(_ sender: NSButton) {
@@ -114,11 +115,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             keyboardObserver.resume()
         }
 
-        menu.removeItem(at: 3)
+        menu.removeItem(at: 4)
         menu.insertItem(withTitle: isPauseRemap ? "✓ Pausing Remap" : "Pause Remap",
                         action: #selector(AppDelegate.pause(_:)),
                         keyEquivalent: "",
-                        at: 3)
+                        at: 4)
         AppNotification.display(body: isPauseRemap ? "KeyRemap is paused" : "KeyRemap is resumed")
     }
     

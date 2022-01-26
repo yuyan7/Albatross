@@ -23,3 +23,13 @@ struct AlbatrossApp: App {
         }
     }
 }
+
+func appVersion() -> String {
+    if let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String,
+       let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String {
+        let padding = build.count < 3 ? String(repeating: "0", count: 3 - build.count) : ""
+        
+        return "\(version)-\(padding)\(build)"
+    }
+    return "Unknown"
+}
