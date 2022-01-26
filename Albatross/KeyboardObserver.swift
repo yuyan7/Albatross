@@ -102,6 +102,7 @@ class KeyboardObserver: NSObject {
         print(aliases, event.getIntegerValueField(.keyboardEventKeycode))
         
         if let sources = aliases[event.getIntegerValueField(.keyboardEventKeycode)] {
+            print(sources)
             for source in sources {
                 if source.match(event: event) {
                     return source.convert(event: event)

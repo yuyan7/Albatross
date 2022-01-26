@@ -114,7 +114,10 @@ class AppConfig: NSObject {
         stack.forEach { elem in
             aliases.append(elem.value)
         }
-        return aliases
+        // return aliases
+        return aliases.sorted {
+            $0.from.count > $1.from.count
+        }
     }
     
     public func load() throws {

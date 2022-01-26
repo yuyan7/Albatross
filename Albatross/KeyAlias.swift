@@ -48,8 +48,10 @@ class KeyAlias: NSObject {
         
         for appAlias in config.getAppAliases(appName: currentApp) {
             if let evt = createRemapEvent(alias: appAlias) {
+                print(evt.getKeyCode())
                 if var v = updated[evt.getKeyCode()] {  // swiftlint:disable:this identifier_name
                     v.append(evt)
+                    updated[evt.getKeyCode()] = v
                 } else {
                     updated[evt.getKeyCode()] = [evt]
                 }
