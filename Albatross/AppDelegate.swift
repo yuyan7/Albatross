@@ -6,9 +6,11 @@
 //
 
 import Cocoa
-
+import ServiceManagement
 
 var statusItem = NSStatusBar.system.statusItem(withLength: CGFloat(NSStatusItem.variableLength))
+let launchAtLoginKey = "LaunchAtLogin"
+let launchHelperAppIdentifier = "io.github.ysugimoto.AlbatrossLaunchAtLogin"
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     
@@ -18,11 +20,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private let appConfig = AppConfig()
     private let menu: NSMenu = NSMenu()
     private var isPauseRemap = false
+    private var isLaunchAtLogin: Bool
     
     override init() {
         keyRemapper = KeyRemapper()
         keyAlias = KeyAlias(config: appConfig)
         keyboardObserver = KeyboardObserver(alias: keyAlias)
+        isLaunchAtLogin = UserDefaults.standard.bool(forKey: launchAtLoginKey)
     }
     
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -31,8 +35,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.highlight(false)
         }
         statusItem.menu = menu
+        menu.addItem(withTitle: "Version: v\(appVersion())", action: nil, keyEquivalent: "")
+        menu.addItem(withTitle: isLaunchAtLogin ? "✓ Launch At Login" : "Launch At Login",
+                     action: #selector(AppDelegate.launchAtLogin(_:)),
+                     keyEquivalent: "")
+        menu.addItem(NSMenuItem.separator())
         menu.addItem(withTitle: "Edit Remap", action: #selector(AppDelegate.config(_:)), keyEquivalent: "")
-        menu.addItem(withTitle: isPauseRemap ? "✓ Pause Remap" : "Pause Remap", action: #selector(AppDelegate.pause(_:)), keyEquivalent: "")
+        menu.addItem(withTitle: isPauseRemap ? "✓ Pause Remap" : "Pause Remap",
+                     action: #selector(AppDelegate.pause(_:)),
+                     keyEquivalent: "")
         menu.addItem(NSMenuItem.separator())
         menu.addItem(withTitle: "Quit Albatross", action: #selector(AppDelegate.quit(_:)), keyEquivalent: "")
         
@@ -46,7 +57,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 NSApplication.shared.terminate(self)
             }
             
-            self.appConfig.watch() { config in
+            self.appConfig.watch { config in
                 self.keyRemapper.updateConfig(config: config)
                 self.keyAlias.updateConfig(config: config)
             }
@@ -58,10 +69,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             do {
                 try self.keyboardObserver.start()
             } catch {
-                AppAlert.display(message: "Appication boot faild", information: "Failed to observer keyboard input event")
+                AppAlert.display(message: "Appication boot faild",
+                                 information: "Failed to observer keyboard input event")
                 NSApplication.shared.terminate(self)
             }
         }
+    }
+    
+    @IBAction func launchAtLogin(_ sender: NSButton) {
+        isLaunchAtLogin = !isLaunchAtLogin
+        
+        if !SMLoginItemSetEnabled(launchHelperAppIdentifier as CFString, isLaunchAtLogin) {
+            AppAlert.display(message: "Failed to set launchLogin")
+            return
+        }
+        
+        UserDefaults.standard.set(isLaunchAtLogin, forKey: launchAtLoginKey)
+        menu.removeItem(at: 1)
+        menu.insertItem(withTitle: isLaunchAtLogin ? "✓ Launch At Login" : "Launch At Login",
+                        action: #selector(AppDelegate.launchAtLogin(_:)),
+                        keyEquivalent: "",
+                        at: 1)
     }
     
     @IBAction func quit(_ sender: NSButton) {
@@ -69,9 +97,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func config(_ sender: NSButton) {
-        let pb = NSPasteboard.general
-        pb.clearContents()
-        pb.setString(appConfig.getFilePath(), forType: .string)
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.setString(appConfig.getFilePath(), forType: .string)
         AppNotification.display(body: "Copied Configuration file path.\nModify configuration with your favorite editor")
     }
     
@@ -79,13 +107,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         isPauseRemap = !isPauseRemap
         
         // pause remap/alias if flag turns on
-        isPauseRemap ? keyRemapper.pause() : keyRemapper.resume(config: appConfig)
-        isPauseRemap ? keyboardObserver.pause() : keyboardObserver.resume()
+        if isPauseRemap {
+            keyRemapper.pause()
+            keyboardObserver.pause()
+        } else {
+            keyRemapper.resume(config: appConfig)
+            keyboardObserver.resume()
+        }
 
-        menu.removeItem(at: 1)
-        let pauseText = isPauseRemap ? "✓ Pausing Remap" : "Pause Remap"
-        menu.insertItem(withTitle: pauseText, action: #selector(AppDelegate.pause(_:)), keyEquivalent: "", at: 1)
-
+        menu.removeItem(at: 4)
+        menu.insertItem(withTitle: isPauseRemap ? "✓ Pausing Remap" : "Pause Remap",
+                        action: #selector(AppDelegate.pause(_:)),
+                        keyEquivalent: "",
+                        at: 4)
         AppNotification.display(body: isPauseRemap ? "KeyRemap is paused" : "KeyRemap is resumed")
     }
     

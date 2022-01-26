@@ -13,6 +13,11 @@
 		503CC0A52799ACF100C57566 /* RemapEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503CC0A42799ACF000C57566 /* RemapEvent.swift */; };
 		50CA2034279EE6710090B705 /* albatross.yml in Resources */ = {isa = PBXBuildFile; fileRef = 50CA2033279EE6710090B705 /* albatross.yml */; };
 		50CA2036279F1B5F0090B705 /* KeyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CA2035279F1B5F0090B705 /* KeyCode.swift */; };
+		50CA2044279F39890090B705 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50CA2043279F39890090B705 /* Assets.xcassets */; };
+		50CA2047279F39890090B705 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50CA2046279F39890090B705 /* Preview Assets.xcassets */; };
+		50CA204D279F3A180090B705 /* AlbatrossLaunchAtLoginApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CA204C279F3A180090B705 /* AlbatrossLaunchAtLoginApp.swift */; };
+		50CA2053279F3B9A0090B705 /* AlbatrossLaunchAtLogin.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 50CA203D279F39870090B705 /* AlbatrossLaunchAtLogin.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		50CA2055279F40060090B705 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CA2054279F40060090B705 /* AppDelegate.swift */; };
 		50FB24F2279C2EFD00A3736F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FB24F1279C2EFD00A3736F /* AppDelegate.swift */; };
 		50FB24FA279C80C900A3736F /* AppAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FB24F9279C80C900A3736F /* AppAlert.swift */; };
 		50FB24FC279C810300A3736F /* AppNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FB24FB279C810300A3736F /* AppNotification.swift */; };
@@ -23,6 +28,19 @@
 		50FB250A279DE35700A3736F /* AppTrusted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FB2509279DE35600A3736F /* AppTrusted.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		50CA2052279F3B720090B705 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				50CA2053279F3B9A0090B705 /* AlbatrossLaunchAtLogin.app in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		50309B7627960C7900938D1E /* Albatross.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Albatross.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50309B7927960C7900938D1E /* AlbatrossApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbatrossApp.swift; sourceTree = "<group>"; };
@@ -32,6 +50,13 @@
 		503CC0A42799ACF000C57566 /* RemapEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemapEvent.swift; sourceTree = "<group>"; };
 		50CA2033279EE6710090B705 /* albatross.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = albatross.yml; sourceTree = "<group>"; };
 		50CA2035279F1B5F0090B705 /* KeyCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCode.swift; sourceTree = "<group>"; };
+		50CA203D279F39870090B705 /* AlbatrossLaunchAtLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlbatrossLaunchAtLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		50CA2043279F39890090B705 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		50CA2046279F39890090B705 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		50CA2048279F39890090B705 /* AlbatrossLaunchAtLogin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AlbatrossLaunchAtLogin.entitlements; sourceTree = "<group>"; };
+		50CA204C279F3A180090B705 /* AlbatrossLaunchAtLoginApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbatrossLaunchAtLoginApp.swift; sourceTree = "<group>"; };
+		50CA204E279F3A6E0090B705 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		50CA2054279F40060090B705 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50FB24F1279C2EFD00A3736F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50FB24F3279C306700A3736F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		50FB24F4279C32EE00A3736F /* Albatross-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Albatross-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -52,6 +77,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		50CA203A279F39870090B705 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -59,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				50309B7827960C7900938D1E /* Albatross */,
+				50CA203E279F39870090B705 /* AlbatrossLaunchAtLogin */,
 				50309B7727960C7900938D1E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -67,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				50309B7627960C7900938D1E /* Albatross.app */,
+				50CA203D279F39870090B705 /* AlbatrossLaunchAtLogin.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -94,6 +128,27 @@
 			path = Albatross;
 			sourceTree = "<group>";
 		};
+		50CA203E279F39870090B705 /* AlbatrossLaunchAtLogin */ = {
+			isa = PBXGroup;
+			children = (
+				50CA204E279F3A6E0090B705 /* Info.plist */,
+				50CA204C279F3A180090B705 /* AlbatrossLaunchAtLoginApp.swift */,
+				50CA2043279F39890090B705 /* Assets.xcassets */,
+				50CA2048279F39890090B705 /* AlbatrossLaunchAtLogin.entitlements */,
+				50CA2045279F39890090B705 /* Preview Content */,
+				50CA2054279F40060090B705 /* AppDelegate.swift */,
+			);
+			path = AlbatrossLaunchAtLogin;
+			sourceTree = "<group>";
+		};
+		50CA2045279F39890090B705 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				50CA2046279F39890090B705 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -104,6 +159,8 @@
 				50309B7227960C7900938D1E /* Sources */,
 				50309B7327960C7900938D1E /* Frameworks */,
 				50309B7427960C7900938D1E /* Resources */,
+				50CA2052279F3B720090B705 /* CopyFiles */,
+				506C3B81279F98B800A88CC3 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -117,6 +174,23 @@
 			productReference = 50309B7627960C7900938D1E /* Albatross.app */;
 			productType = "com.apple.product-type.application";
 		};
+		50CA203C279F39870090B705 /* AlbatrossLaunchAtLogin */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 50CA2049279F39890090B705 /* Build configuration list for PBXNativeTarget "AlbatrossLaunchAtLogin" */;
+			buildPhases = (
+				50CA2039279F39870090B705 /* Sources */,
+				50CA203A279F39870090B705 /* Frameworks */,
+				50CA203B279F39870090B705 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AlbatrossLaunchAtLogin;
+			productName = AlbatrossLaunchAtLogin;
+			productReference = 50CA203D279F39870090B705 /* AlbatrossLaunchAtLogin.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -128,6 +202,9 @@
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					50309B7527960C7900938D1E = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					50CA203C279F39870090B705 = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
 				};
@@ -149,6 +226,7 @@
 			projectRoot = "";
 			targets = (
 				50309B7527960C7900938D1E /* Albatross */,
+				50CA203C279F39870090B705 /* AlbatrossLaunchAtLogin */,
 			);
 		};
 /* End PBXProject section */
@@ -163,7 +241,36 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		50CA203B279F39870090B705 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50CA2047279F39890090B705 /* Preview Assets.xcassets in Resources */,
+				50CA2044279F39890090B705 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		506C3B81279F98B800A88CC3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		50309B7227960C7900938D1E /* Sources */ = {
@@ -181,6 +288,15 @@
 				50FB2505279CACF300A3736F /* KeyAlias.swift in Sources */,
 				50309B7A27960C7900938D1E /* AlbatrossApp.swift in Sources */,
 				50FB250A279DE35700A3736F /* AppTrusted.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		50CA2039279F39870090B705 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50CA2055279F40060090B705 /* AppDelegate.swift in Sources */,
+				50CA204D279F3A180090B705 /* AlbatrossLaunchAtLoginApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,12 +437,14 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Albatross/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
+				"OTHER_SWIFT_FLAGS[arch=*]" = "-D __DEBUG__";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.ysugimoto.Albatross;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -348,13 +466,72 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Albatross/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.ysugimoto.Albatross;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		50CA204A279F39890090B705 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = AlbatrossLaunchAtLogin/AlbatrossLaunchAtLogin.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"AlbatrossLaunchAtLogin/Preview Content\"";
+				DEVELOPMENT_TEAM = 3S7BU59HB2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AlbatrossLaunchAtLogin/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = io.github.ysugimoto.Albatross;
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.ysugimoto.AlbatrossLaunchAtLogin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		50CA204B279F39890090B705 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = AlbatrossLaunchAtLogin/AlbatrossLaunchAtLogin.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"AlbatrossLaunchAtLogin/Preview Content\"";
+				DEVELOPMENT_TEAM = 3S7BU59HB2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AlbatrossLaunchAtLogin/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.ysugimoto.AlbatrossLaunchAtLogin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -378,6 +555,15 @@
 			buildConfigurations = (
 				50309B8B27960C7B00938D1E /* Debug */,
 				50309B8C27960C7B00938D1E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		50CA2049279F39890090B705 /* Build configuration list for PBXNativeTarget "AlbatrossLaunchAtLogin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				50CA204A279F39890090B705 /* Debug */,
+				50CA204B279F39890090B705 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

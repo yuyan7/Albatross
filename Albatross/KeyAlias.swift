@@ -11,7 +11,7 @@ import AppKit
 class KeyAlias: NSObject {
     private var config: AppConfig
     private var currentApp: String = ""
-    private var aliases: Dictionary<Int64, [SourceEvent]> = [:]
+    private var aliases: [Int64: [SourceEvent]] = [:]
     
     init(config: AppConfig) {
         self.config = config
@@ -34,7 +34,7 @@ class KeyAlias: NSObject {
         }
     }
     
-    public func getAliases() -> Dictionary<Int64, [SourceEvent]> {
+    public func getAliases() -> [Int64: [SourceEvent]] {
         return aliases
     }
     
@@ -44,11 +44,11 @@ class KeyAlias: NSObject {
     }
     
     private func updateAlias() {
-        var updated: Dictionary<Int64, [SourceEvent]> = [:]
+        var updated: [Int64: [SourceEvent]] = [:]
         
-        for a in config.getAppAliases(appName: currentApp) {
-            if let evt = createRemapEvent(alias: a) {
-                if var v = updated[evt.getKeyCode()] {
+        for appAlias in config.getAppAliases(appName: currentApp) {
+            if let evt = createRemapEvent(alias: appAlias) {
+                if var v = updated[evt.getKeyCode()] {  // swiftlint:disable:this identifier_name
                     v.append(evt)
                 } else {
                     updated[evt.getKeyCode()] = [evt]

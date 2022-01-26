@@ -7,9 +7,8 @@
 
 import Cocoa
 
-
 class KeyEvent: NSObject {
-    private var keyCode: Int64 = UNKNOWN_KEYCODE
+    private var keyCode: Int64 = unknownKeyCode
     private var flag: UInt64 = 0
     public var isSingleKey: Bool = false
     
@@ -24,7 +23,7 @@ class KeyEvent: NSObject {
     public func setKeyCode(code: Int64, isShift: Bool) {
         keyCode = code
         if isShift {
-            setMetaKey(flag: BOTH_SHIFT_KEY)
+            setMetaKey(flag: bothShiftKeyFlags)
         }
     }
     
@@ -52,27 +51,26 @@ class SourceEvent: KeyEvent {
         }
         
         let flag = getFlag()
+        
         if (event.flags.rawValue & flag) == 0 {
             print("flag mismatch", event.flags, flag)
             return false
         }
         
-        
-        // CGEventFlags comparison is a little more complecated
-        // If combination meta keys are specified Ctrl key only (e.g Ctrl+a) or CapsLock key, we don't care of left or right,
-        // and Control/CapsLock meta flag may be different between builtin keyboard and USB keyboard,
-        // that's messy but currently we don't know how to distinguish the input source keyboard in CGEvent.
+        // CGEventFlags comparison is a little complecated.
+        // If combination meta keys are specified Ctrl key only (e.g Ctrl+a) or CapsLock key,
+        // we don't care of left or right and Control/CapsLock meta flag may be different
+        // between builtin keyboard and USB keyboard.
+        // That's messy but currently we don't know how to distinguish the input source keyboard in CGEvent.
         // So, we gave up to handle it, just compare Control flag of 16-24 bit.
         //
-        // On the other hand, Shift, Option, Command keys have left and right keys so we need to compare with lowest 8 bits.
-        if (((event.flags.rawValue & 0xFF) & (flag & 0xFF)) == 0) { // Lowest 8 bit comparison for other meta key combination
-            if (flag >> 16) == 0x04  { // Control combination only
-                return true
-            } else if (flag >> 16) == 0x01 { // CapsLock combination only
+        // On the other hand, Shift, Option, Command keys have left and right keys
+        // so we need to compare with lowest 8 bits to distinguish them.
+        if ((event.flags.rawValue & 0xFF) & (flag & 0xFF)) == 0 {
+            if (flag >> 16) == 0x04 || (flag >> 16) == 0x01 { // Control or CapsLock comparison
                 return true
             }
             print("left/right mismatch")
-
             return false
         }
         
@@ -81,8 +79,8 @@ class SourceEvent: KeyEvent {
     
     public func convert(event: CGEvent) -> CGEvent {
         event.setIntegerValueField(.keyboardEventKeycode, value: destination.getKeyCode())
-        if destination.getFlag() != DEFAULT_CGEVENT_FLAGS {
-            event.flags = CGEventFlags(rawValue: (destination.getFlag() | DEFAULT_CGEVENT_FLAGS))
+        if destination.getFlag() != defaultCGEventFlags {
+            event.flags = CGEventFlags(rawValue: (destination.getFlag() | defaultCGEventFlags))
         }
         print("converted", event.getIntegerValueField(.keyboardEventKeycode), event.flags)
         
@@ -100,17 +98,17 @@ func createRemapEvent(alias: Alias) -> SourceEvent? {
     
     if keys.count == 1 {
         src.isSingleKey = true
-        if let v = keyCodeMap[keys[0]] {
+        if let v = keyCodeMap[keys[0]] {  // swiftlint:disable:this identifier_name
             src.setKeyCode(code: v.0, isShift: v.1)
         }
         return src
     }
     
     for key in keys {
-        if let m = metaKeyMap[key] {
+        if let m = metaKeyMap[key] {  // swiftlint:disable:this identifier_name
             src.setMetaKey(flag: m)
-        } else if let v = keyCodeMap[key] {
-            if src.getKeyCode() != UNKNOWN_KEYCODE {
+        } else if let v = keyCodeMap[key] {  // swiftlint:disable:this identifier_name
+            if src.getKeyCode() != unknownKeyCode {
                return nil
             }
             src.setKeyCode(code: v.0, isShift: v.1)
@@ -127,17 +125,17 @@ func createDestinationEvent(keys: [String]) -> KeyEvent? {
     
     if keys.count == 1 {
         dst.isSingleKey = true
-        if let v = keyCodeMap[keys[0]] {
+        if let v = keyCodeMap[keys[0]] {  // swiftlint:disable:this identifier_name
             dst.setKeyCode(code: v.0, isShift: v.1)
         }
         return dst
     }
     
     for key in keys {
-        if let m = metaKeyMap[key] {
+        if let m = metaKeyMap[key] {  // swiftlint:disable:this identifier_name
             dst.setMetaKey(flag: m)
-        } else if let v = keyCodeMap[key] {
-            if dst.getKeyCode() != UNKNOWN_KEYCODE {
+        } else if let v = keyCodeMap[key] {  // swiftlint:disable:this identifier_name
+            if dst.getKeyCode() != unknownKeyCode {
                return nil
             }
             dst.setKeyCode(code: v.0, isShift: v.1)
