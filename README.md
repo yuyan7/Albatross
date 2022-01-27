@@ -60,7 +60,7 @@ You can configure about both remapping in configuration file placed at `$HOME/.c
 > - IOKit key remapping affects system global so if you want to reset remapping, set to empty or press `Pause Remap` in status menu, or Quit application.
 > - IOKit only remaps single key. If you want to remap key combination like shortcut, please use `alias` setting.
 
-*Important: DO NOT kill this app from terminal or apple menu because Albatross resotres default key setting on terminating app.*
+*Important: DO NOT kill this app from terminal or apple menu because Albatross restores default key setting on terminating app.*
 
 ### alias
 
