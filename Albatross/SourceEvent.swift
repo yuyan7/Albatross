@@ -85,8 +85,8 @@ class DoubleSourceEvent: SimpleSourceEvent {
     private var timestamp: CGEventTimestamp = 0
     private var isMatched = false
     
-    init(src: KeyEvent, dest: DestinationEvent, interval: Int) {
-        self.interval = UInt64(interval * 1000000) // to nano seconds
+    override init(src: KeyEvent, dest: DestinationEvent) {
+        self.interval = UInt64(300 * 1000000) // nano seconds
         super.init(src: src, dest: dest)
     }
     
@@ -113,7 +113,6 @@ class DoubleSourceEvent: SimpleSourceEvent {
         }
         if timestamp == 0 {
             timestamp = event.timestamp
-            print("set timestamp")
             return false
         }
         print("compare", event.timestamp, timestamp, event.timestamp - timestamp)
@@ -136,17 +135,15 @@ func createSourceEvent(alias: Alias, dest: DestinationEvent) -> SourceEvent? {
         if let v = keyCodeMap[keys[0]] {  // swiftlint:disable:this identifier_name
             src.setKeyCode(code: v.0, isShift: v.1)
         }
-        switch alias.type {
-        case aliasTypeDouble:
-            return DoubleSourceEvent(src: src, dest: dest, interval: alias.interval!)
-        default:
+        if alias.double ?? false {
+            return DoubleSourceEvent(src: src, dest: dest)
+        } else {
             return SimpleSourceEvent(src: src, dest: dest)
         }
     }
     
     for key in keys {
         if let m = metaKeyMap[key] {  // swiftlint:disable:this identifier_name
-            print("meta", m)
             src.setMetaKey(flag: m)
         } else if let v = keyCodeMap[key] {  // swiftlint:disable:this identifier_name
             if src.getKeyCode() != unknownKeyCode {
@@ -158,10 +155,9 @@ func createSourceEvent(alias: Alias, dest: DestinationEvent) -> SourceEvent? {
         }
     }
     
-    switch alias.type {
-    case aliasTypeDouble:
-        return DoubleSourceEvent(src: src, dest: dest, interval: alias.interval!)
-    default:
+    if alias.double ?? false {
+        return DoubleSourceEvent(src: src, dest: dest)
+    } else {
         return SimpleSourceEvent(src: src, dest: dest)
     }
 }

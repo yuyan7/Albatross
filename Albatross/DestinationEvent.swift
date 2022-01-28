@@ -91,16 +91,10 @@ class ToggleDestinationEvent: KeyEvent, DestinationEvent {
 }
 
 func createDestinationEvent(alias: Alias) -> DestinationEvent? {
-    switch alias.type {
-    case aliasTypeToggle:
-        guard let toggles = alias.toggles else {
-            return nil
-        }
+    if let toggles = alias.toggles {
         return ToggleDestinationEvent.create(toggles)
-    default:
-        guard let keys = alias.to else {
-            return nil
-        }
+    } else if let keys = alias.to {
         return SimpleDestinationEvent.create(keys)
     }
+    return nil
 }
