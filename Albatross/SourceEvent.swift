@@ -95,22 +95,14 @@ class DoubleSourceEvent: SimpleSourceEvent {
             timestamp = 0
             return false
         }
-        
-        switch type {
-        case CGEventType.keyUp:
+        if type == CGEventType.keyUp {
             if isMatched {
                 isMatched = false
                 return true
             }
-        case CGEventType.flagsChanged:
             return false
-        default:
-            break
         }
         
-        if type != CGEventType.keyDown {
-            return false
-        }
         if timestamp == 0 {
             timestamp = event.timestamp
             return false

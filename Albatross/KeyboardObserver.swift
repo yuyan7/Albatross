@@ -95,7 +95,7 @@ class KeyboardObserver: NSObject {
             // On combination key remapping, it should be handled in keyDown and keyUp case
             // so this case treats single metaKey is pressed and handle only keyUp case
             if event.flags.rawValue != defaultCGEventFlags {
-                if let converted = convertEvent(event: event, type: CGEventType.keyUp) {
+                if let converted = convertEvent(event: event, type: CGEventType.flagsChanged) {
                     // If metakey event is converted, need to emurate keyDown/keyUp event to tap
                     postEmuratedEvent(keyCode: converted.getIntegerValueField(.keyboardEventKeycode))
                     return Unmanaged.passUnretained(event)

@@ -66,17 +66,19 @@ You can configure about both remapping in configuration file placed at `$HOME/.c
 
 `alias` field enables virtual key remapping.
 
-| field                     | type                | description                                                                                    |
-|:--------------------------|:--------------------|:-----------------------------------------------------------------------------------------------|
-| alias                     | object              | Virtual key remap configuration                                                                |
-| alias.global              | array               | system global setting                                                                          |
-| alias.global[].from       | array&lt;string&gt; | source key combination                                                                         |
-| alias.global[].to         | array&lt;string&gt; | destination key combination                                                                    |
-| alias.apps                | array               | application specific setting, enables only the specific application is active e.g GoogleChrome |
-| alias.apps[].name         | string              | specific application name to enable alias                                                      |
-| alias.apps[].alias        | array               | alias setting for the application                                                              |
-| alias.apps[].alias[].from | array&lt;string&gt; | source key combination                                                                         |
-| alias.apps[].alias[].to   | array&lt;string&gt; | description key combination                                                                    |
+| field                         | type                | description                                                                                    |
+|:------------------------------|:--------------------|:-----------------------------------------------------------------------------------------------|
+| alias                         | object              | Virtual key remap configuration                                                                |
+| alias.global                  | array               | system global setting                                                                          |
+| alias.global[].from           | array&lt;string&gt; | source key combination                                                                         |
+| alias.global[].to             | array&lt;string&gt; | destination key combination                                                                    |
+| alias.apps                    | array               | application specific setting, enables only the specific application is active e.g GoogleChrome |
+| alias.apps[].name             | string              | specific application name to enable alias                                                      |
+| alias.apps[].alias            | array               | alias setting for the application                                                              |
+| alias.apps[].alias[].from     | array&lt;string&gt; | source key combination                                                                         |
+| alias.apps[].alias[].to?      | array&lt;string&gt; | simple description key combination.                                                            |
+| alias.apps[].alias[].toggles? | array&lt;string&gt; | toggle remapping. Toggle this field values for each source matching                            |
+| alias.apps[].alias[].double?  | bool                | double key down remapping. If this field is true, handle double key keydown to remap           |
 
 > Note:
 > The application name must be an actual name which is shown in `app.localizedName` in Swift.
