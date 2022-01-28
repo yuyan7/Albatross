@@ -47,16 +47,19 @@ class KeyAlias: NSObject {
         var updated: [Int64: [SourceEvent]] = [:]
         
         for appAlias in config.getAppAliases(appName: currentApp) {
-            if let evt = createRemapEvent(alias: appAlias) {
-                print(evt.getKeyCode())
-                if var v = updated[evt.getKeyCode()] {  // swiftlint:disable:this identifier_name
-                    v.append(evt)
-                    updated[evt.getKeyCode()] = v
-                } else {
-                    updated[evt.getKeyCode()] = [evt]
+            if let dest = createDestinationEvent(alias: appAlias) {
+                if let src = createSourceEvent(alias: appAlias, dest: dest) {
+                    if var v = updated[src.getKeyCode()] {  // swiftlint:disable:this identifier_name
+                        v.append(src)
+                        updated[src.getKeyCode()] = v
+                    } else {
+                        updated[src.getKeyCode()] = [src]
+                    }
                 }
             }
         }
+        
+        print(updated)
         
         aliases = updated
     }

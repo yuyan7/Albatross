@@ -152,6 +152,8 @@ let metaKeyFlgas: [Int64: UInt64] = [
     60: 0x020004,
     57: 0x010000,
     59: 0x040000,
+    102: 0x000100,
+    104: 0x000100,
 ]
 
 // In source event comparison of upper case character like "A",
@@ -163,4 +165,8 @@ func getFlagsForKeyCode(keyCode: Int64) -> UInt64 {
         return v | defaultCGEventFlags
     }
     return defaultCGEventFlags
+}
+
+func isMetaKey(_ keyCode: Int64) -> Bool {
+    return metaKeyFlgas.keys.contains(keyCode)
 }

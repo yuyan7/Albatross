@@ -8,13 +8,20 @@
 import Foundation
 import Yams
 
+let aliasTypeSimple = "simple"
+let aliasTypeToggle = "toggle"
+let aliasTypeDouble = "double"
+let defaultKeyInternalValue: Int = 300
+
 struct Config: Codable {
+    var doubleKeyInterval: Int?
     let remap: [String: String]
     let alias: AliasConfig
     
     init() {
         remap = [:]
         alias = AliasConfig.init()
+        doubleKeyInterval = defaultKeyInternalValue
     }
 }
 
@@ -30,17 +37,23 @@ struct AliasConfig: Codable {
 struct Alias: Codable {
     let from: [String]
     // swiftlint:disable:next identifier_name
-    let to: [String]
+    let to: [String]?
+    let toggles: [[String]]?
+    let type: String?
+    var interval: Int?
     
     init() {
         from = []
         to = []
+        toggles = []
+        type = aliasTypeSimple
+        interval = 0
     }
 }
 
 struct AppAlias: Codable {
     let name: String
-    let alias: [Alias]
+    var alias: [Alias]
     
     init() {
         name = ""
@@ -97,7 +110,12 @@ class AppConfig: NSObject {
     public func getAppAliases(appName: String) -> [Alias] {
         var stack: [String: Alias] = [:]
         
-        for alias in config.alias.global {
+        for var alias in config.alias.global {
+            if alias.type == aliasTypeDouble {
+                if alias.interval == nil {
+                    alias.interval = config.doubleKeyInterval
+                }
+            }
             stack[alias.from.joined(separator: "")] = alias
         }
         
@@ -105,7 +123,12 @@ class AppConfig: NSObject {
             if app.name != appName {
                 continue
             }
-            for alias in app.alias {
+            for var alias in app.alias {
+                if alias.type == aliasTypeDouble {
+                    if alias.interval == nil {
+                        alias.interval = config.doubleKeyInterval
+                    }
+                }
                 stack[alias.from.joined(separator: "")] = alias
             }
         }
@@ -130,6 +153,9 @@ class AppConfig: NSObject {
             let decoder = YAMLDecoder()
             do {
                 config = try decoder.decode(Config.self, from: fp.readDataToEndOfFile())
+                if config.doubleKeyInterval == nil {
+                    config.doubleKeyInterval = defaultKeyInternalValue
+                }
             } catch {
                 throw ConfigError.invalid("Invalid Config: " + error.localizedDescription)
             }
