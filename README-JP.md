@@ -66,17 +66,19 @@ JISキーボードでは特定のキーコードが異なるかもしれませ�
 
 `alias` フィールドは仮想キーボードのキーリマップを行う設定です。リマップというよりはショートカットに近いかもしれません。
 
-| field                     | type                | description                                                                                     |
-|:--------------------------|:--------------------|:------------------------------------------------------------------------------------------------|
-| alias                     | object              | 仮想キーボードのリマップ設定                                                                    |
-| alias.global              | array               | システムグローバル設定                                                                          |
-| alias.global[].from       | array&lt;string&gt; | 入力キーの組み合わせ                                                                            |
-| alias.global[].to         | array&lt;string&gt; | リマップキーの組み合わせ                                                                        |
-| alias.apps                | array               | アプリケーション固有のリマップ設定。特定のアプリケーションがアクティブな場合のみ有効化できます。|
-| alias.apps[].name         | string              | 有効化したいアプリケーション名                                                                  |
-| alias.apps[].alias        | array               | リマップ設定                                                                                    |
-| alias.apps[].alias[].from | array&lt;string&gt; | 入力キーの組み合わせ                                                                            |
-| alias.apps[].alias[].to   | array&lt;string&gt; | リマップキーの組み合わせ                                                                        |
+| field                         | type                | description                                                                                     |
+|:------------------------------|:--------------------|:------------------------------------------------------------------------------------------------|
+| alias                         | object              | 仮想キーボードのリマップ設定                                                                    |
+| alias.global                  | array               | システムグローバル設定                                                                          |
+| alias.global[].from           | array&lt;string&gt; | 入力キーの組み合わせ                                                                            |
+| alias.global[].to             | array&lt;string&gt; | リマップキーの組み合わせ                                                                        |
+| alias.apps                    | array               | アプリケーション固有のリマップ設定。特定のアプリケーションがアクティブな場合のみ有効化できます  |
+| alias.apps[].name             | string              | 有効化したいアプリケーション名                                                                  |
+| alias.apps[].alias            | array               | リマップ設定                                                                                    |
+| alias.apps[].alias[].from     | array&lt;string&gt; | 入力キーの組み合わせ                                                                            |
+| alias.apps[].alias[].to?      | array&lt;string&gt; | リマップキーの組み合わせ                                                                        |
+| alias.apps[].alias[].toggles? | array&lt;string&gt; | 入力キーにマッチする度にリマップ先をトグルします                                                |
+| alias.apps[].alias[].double?  | bool                | キーを2回連続で押した時にリマップする設定                                                       |
 
 > 注意:
 > 有効化したいアプリケーション名はSwiftで `app.localizedName` で取得できるものになります。
