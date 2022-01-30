@@ -30,17 +30,20 @@ struct AliasConfig: Codable {
 struct Alias: Codable {
     let from: [String]
     // swiftlint:disable:next identifier_name
-    let to: [String]
+    let to: [String]?
+    let toggles: [[String]]?
+    var double: Bool?
     
     init() {
         from = []
         to = []
+        toggles = []
     }
 }
 
 struct AppAlias: Codable {
     let name: String
-    let alias: [Alias]
+    var alias: [Alias]
     
     init() {
         name = ""
@@ -157,7 +160,7 @@ class AppConfig: NSObject {
                         self.cancel()
                         self.watch(callback: callback)
                     } catch {
-                        AppNotification.display(body: "Configuration did not update because invalid setting")
+                        AppAlert.display(message: "Configuration did not update because invalid setting")
                     }
                     
                 }

@@ -10,7 +10,9 @@
 		50309B7A27960C7900938D1E /* AlbatrossApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50309B7927960C7900938D1E /* AlbatrossApp.swift */; };
 		50309B7E27960C7B00938D1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50309B7D27960C7B00938D1E /* Assets.xcassets */; };
 		50309B8E27960CB300938D1E /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50309B8D27960CB300938D1E /* KeyboardObserver.swift */; };
-		503CC0A52799ACF100C57566 /* RemapEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503CC0A42799ACF000C57566 /* RemapEvent.swift */; };
+		50C91BDF27A36B090064D50B /* KeyEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C91BDE27A36B090064D50B /* KeyEvent.swift */; };
+		50C91BE127A36B290064D50B /* SourceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C91BE027A36B290064D50B /* SourceEvent.swift */; };
+		50C91BE327A36BF40064D50B /* DestinationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C91BE227A36BF40064D50B /* DestinationEvent.swift */; };
 		50CA2034279EE6710090B705 /* albatross.yml in Resources */ = {isa = PBXBuildFile; fileRef = 50CA2033279EE6710090B705 /* albatross.yml */; };
 		50CA2036279F1B5F0090B705 /* KeyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CA2035279F1B5F0090B705 /* KeyCode.swift */; };
 		50CA2044279F39890090B705 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50CA2043279F39890090B705 /* Assets.xcassets */; };
@@ -47,7 +49,9 @@
 		50309B7D27960C7B00938D1E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		50309B8727960C7B00938D1E /* Albatross.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Albatross.entitlements; sourceTree = "<group>"; };
 		50309B8D27960CB300938D1E /* KeyboardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
-		503CC0A42799ACF000C57566 /* RemapEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemapEvent.swift; sourceTree = "<group>"; };
+		50C91BDE27A36B090064D50B /* KeyEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyEvent.swift; sourceTree = "<group>"; };
+		50C91BE027A36B290064D50B /* SourceEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEvent.swift; sourceTree = "<group>"; };
+		50C91BE227A36BF40064D50B /* DestinationEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationEvent.swift; sourceTree = "<group>"; };
 		50CA2033279EE6710090B705 /* albatross.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = albatross.yml; sourceTree = "<group>"; };
 		50CA2035279F1B5F0090B705 /* KeyCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCode.swift; sourceTree = "<group>"; };
 		50CA203D279F39870090B705 /* AlbatrossLaunchAtLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlbatrossLaunchAtLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,7 +118,6 @@
 				50309B8727960C7B00938D1E /* Albatross.entitlements */,
 				50CA2033279EE6710090B705 /* albatross.yml */,
 				50309B8D27960CB300938D1E /* KeyboardObserver.swift */,
-				503CC0A42799ACF000C57566 /* RemapEvent.swift */,
 				50FB24F4279C32EE00A3736F /* Albatross-Bridging-Header.h */,
 				50FB24F1279C2EFD00A3736F /* AppDelegate.swift */,
 				50FB24F9279C80C900A3736F /* AppAlert.swift */,
@@ -124,6 +127,9 @@
 				50FB2504279CACF300A3736F /* KeyAlias.swift */,
 				50FB2509279DE35600A3736F /* AppTrusted.swift */,
 				50CA2035279F1B5F0090B705 /* KeyCode.swift */,
+				50C91BDE27A36B090064D50B /* KeyEvent.swift */,
+				50C91BE027A36B290064D50B /* SourceEvent.swift */,
+				50C91BE227A36BF40064D50B /* DestinationEvent.swift */,
 			);
 			path = Albatross;
 			sourceTree = "<group>";
@@ -280,11 +286,13 @@
 				50FB2501279C8B0900A3736F /* AppConfig.swift in Sources */,
 				50FB24F2279C2EFD00A3736F /* AppDelegate.swift in Sources */,
 				50309B8E27960CB300938D1E /* KeyboardObserver.swift in Sources */,
-				503CC0A52799ACF100C57566 /* RemapEvent.swift in Sources */,
 				50FB2503279CA68700A3736F /* KeyRemapper.swift in Sources */,
+				50C91BE327A36BF40064D50B /* DestinationEvent.swift in Sources */,
 				50FB24FC279C810300A3736F /* AppNotification.swift in Sources */,
 				50CA2036279F1B5F0090B705 /* KeyCode.swift in Sources */,
 				50FB24FA279C80C900A3736F /* AppAlert.swift in Sources */,
+				50C91BE127A36B290064D50B /* SourceEvent.swift in Sources */,
+				50C91BDF27A36B090064D50B /* KeyEvent.swift in Sources */,
 				50FB2505279CACF300A3736F /* KeyAlias.swift in Sources */,
 				50309B7A27960C7900938D1E /* AlbatrossApp.swift in Sources */,
 				50FB250A279DE35700A3736F /* AppTrusted.swift in Sources */,
@@ -443,7 +451,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1.0;
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-D __DEBUG__";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.ysugimoto.Albatross;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -472,7 +480,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.ysugimoto.Albatross;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

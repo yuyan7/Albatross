@@ -76,9 +76,10 @@ You can configure about both remapping in configuration file placed at `$HOME/.c
 | alias.apps[].name             | string              | specific application name to enable alias                                                      |
 | alias.apps[].alias            | array               | alias setting for the application                                                              |
 | alias.apps[].alias[].from     | array&lt;string&gt; | source key combination                                                                         |
-| alias.apps[].alias[].to?      | array&lt;string&gt; | description key combination                                                                    |
-| alias.apps[].alias[].toggles? | array&lt;string&gt; | toggle remap whenever input key is matched                                                     |
-| alias.apps[].alias[].double?  | bool                | do remap when source key is double down                                                        |
+| alias.apps[].alias[].to?      | array&lt;string&gt; | simple description key combination.                                                            |
+| alias.apps[].alias[].toggles? | array&lt;string&gt; | toggle remapping. Toggle this field values for each source matching                            |
+| alias.apps[].alias[].double?  | bool                | double key down remapping. If this field is true, handle double key keydown to remap           |
+
 
 > Note:
 > The application name must be an actual name which is shown in `app.localizedName` in Swift.

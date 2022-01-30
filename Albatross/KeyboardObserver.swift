@@ -70,12 +70,22 @@ class KeyboardObserver: NSObject {
         switch type {
         case CGEventType.keyDown:
             print("keydown", event.getIntegerValueField(.keyboardEventKeycode), event.flags)
-            if let converted = convertEvent(event: event) {
+            if let converted = convertEvent(event: event, type: type) {
+                let keyCode = converted.getIntegerValueField(.keyboardEventKeycode)
+                if isMetaKey(keyCode) {
+                    postEmuratedEvent(keyCode: keyCode)
+                    return Unmanaged.passUnretained(event)
+                }
                 return Unmanaged.passUnretained(converted)
             }
         case CGEventType.keyUp:
             print("keyup", event.getIntegerValueField(.keyboardEventKeycode), event.flags)
-            if let converted = convertEvent(event: event) {
+            if let converted = convertEvent(event: event, type: type) {
+                let keyCode = converted.getIntegerValueField(.keyboardEventKeycode)
+                if isMetaKey(keyCode) {
+                    postEmuratedEvent(keyCode: keyCode)
+                    return Unmanaged.passUnretained(event)
+                }
                 return Unmanaged.passUnretained(converted)
             }
         case CGEventType.flagsChanged:
@@ -85,7 +95,7 @@ class KeyboardObserver: NSObject {
             // On combination key remapping, it should be handled in keyDown and keyUp case
             // so this case treats single metaKey is pressed and handle only keyUp case
             if event.flags.rawValue != defaultCGEventFlags {
-                if let converted = convertEvent(event: event) {
+                if let converted = convertEvent(event: event, type: CGEventType.flagsChanged) {
                     // If metakey event is converted, need to emurate keyDown/keyUp event to tap
                     postEmuratedEvent(keyCode: converted.getIntegerValueField(.keyboardEventKeycode))
                     return Unmanaged.passUnretained(event)
@@ -97,14 +107,14 @@ class KeyboardObserver: NSObject {
         return Unmanaged.passUnretained(event)
     }
     
-    private func convertEvent(event: CGEvent) -> CGEvent? {
+    private func convertEvent(event: CGEvent, type: CGEventType) -> CGEvent? {
         let aliases = alias.getAliases()
         print(aliases, event.getIntegerValueField(.keyboardEventKeycode))
         
         if let sources = aliases[event.getIntegerValueField(.keyboardEventKeycode)] {
             print(sources)
             for source in sources {
-                if source.match(event: event) {
+                if source.match(event: event, type: type) {
                     return source.convert(event: event)
                 }
             }
