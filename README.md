@@ -60,7 +60,7 @@ You can configure about both remapping in configuration file placed at `$HOME/.c
 > - IOKit key remapping affects system global so if you want to reset remapping, set to empty or press `Pause Remap` in status menu, or Quit application.
 > - IOKit only remaps single key. If you want to remap key combination like shortcut, please use `alias` setting.
 
-*Important: DO NOT kill this app from terminal or apple menu because Albatross resotres default key setting on terminating app.*
+*Important: DO NOT kill this app from terminal or apple menu because Albatross restores default key setting on terminating app.*
 
 ### alias
 
@@ -79,6 +79,7 @@ You can configure about both remapping in configuration file placed at `$HOME/.c
 | alias.apps[].alias[].to?      | array&lt;string&gt; | simple description key combination.                                                            |
 | alias.apps[].alias[].toggles? | array&lt;string&gt; | toggle remapping. Toggle this field values for each source matching                            |
 | alias.apps[].alias[].double?  | bool                | double key down remapping. If this field is true, handle double key keydown to remap           |
+
 
 > Note:
 > The application name must be an actual name which is shown in `app.localizedName` in Swift.
