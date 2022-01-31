@@ -17,6 +17,7 @@ We welcome to use this app and report to us!
 ## Support OS
 
 - macos 11.6.1 Big Sur
+- macos 12.0.1 Monterey
 
 ## Installation
 
