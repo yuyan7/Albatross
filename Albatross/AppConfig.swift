@@ -73,7 +73,7 @@ class AppConfig: NSObject {
             .appendingPathExtension("yml")
     }
     
-    private func cancel() {
+    public func cancel() {
         for source in sources {
             source.cancel()
         }

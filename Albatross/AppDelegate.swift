@@ -126,5 +126,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ notification: Notification) {
         // we MUST restore default keymaps on application terminating
         keyRemapper.restore()
+        appConfig.cancel()
     }
 }
