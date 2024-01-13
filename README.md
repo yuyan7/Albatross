@@ -1,5 +1,4 @@
-[Alternative Japanese README](https://github.com/ysugimoto/Albatross/blob/master/README-JP.md)
-
+[Alternative Japanese README](https://github.com/yuyan7/Albatross/blob/master/README-JP.md)
 
 ![albatross-middle](https://user-images.githubusercontent.com/1000401/151051494-eba3d68b-fc0e-49bf-a769-8f5bd9eade7b.png)
 
@@ -16,12 +15,11 @@ We welcome to use this app and report to us!
 
 ## Support OS
 
-- macos 11.6.1 Big Sur
-- macos 12.0.1 Monterey
+- macos 14.0.0 Sonoma
 
 ## Installation
 
-This app is unsigned so you can get it from [release](https://github.com/ysugimoto/Albatross/releases) page and put app into `Application` folder.
+This app is unsigned so you can get it from [release](https://github.com/yuyan7/Albatross/releases) page and put app into `Application` folder.
 
 After launch this app, you need to allow an Accessibility permission on your machine, please allow this app.
 
@@ -52,23 +50,24 @@ You can configure about both remapping in configuration file placed at `$HOME/.c
 `remap` field enables hardware key remapping.
 
 | field        | type   | description                 |
-|:-------------|:-------|:----------------------------|
+| :----------- | :----- | :-------------------------- |
 | remap        | object | HID key remap configuration |
 | remap[key]   | string | remap source key            |
 | remap[value] | string | remap destination key       |
 
 > Note:
+>
 > - IOKit key remapping affects system global so if you want to reset remapping, set to empty or press `Pause Remap` in status menu, or Quit application.
 > - IOKit only remaps single key. If you want to remap key combination like shortcut, please use `alias` setting.
 
-*Important: DO NOT kill this app from terminal or apple menu because Albatross restores default key setting on terminating app.*
+_Important: DO NOT kill this app from terminal or apple menu because Albatross restores default key setting on terminating app._
 
 ### alias
 
 `alias` field enables virtual key remapping.
 
 | field                         | type                | description                                                                                    |
-|:------------------------------|:--------------------|:-----------------------------------------------------------------------------------------------|
+| :---------------------------- | :------------------ | :--------------------------------------------------------------------------------------------- |
 | alias                         | object              | Virtual key remap configuration                                                                |
 | alias.global                  | array               | system global setting                                                                          |
 | alias.global[].from           | array&lt;string&gt; | source key combination                                                                         |
@@ -81,7 +80,6 @@ You can configure about both remapping in configuration file placed at `$HOME/.c
 | alias.apps[].alias[].toggles? | array&lt;string&gt; | toggle remapping. Toggle this field values for each source matching                            |
 | alias.apps[].alias[].double?  | bool                | double key down remapping. If this field is true, handle double key keydown to remap           |
 
-
 > Note:
 > The application name must be an actual name which is shown in `app.localizedName` in Swift.
 > For example, if you want to enable for GoogleChrome, you need to specify `Google Chrome` in `alias.apps[].name`.
@@ -93,44 +91,44 @@ The virtual key remap is enable only during Albatross is running.
 
 In the configuration, each meta keys are specified as fixed string. You can use them for setting, see follwing table:
 
-| Albatross | Keyboard Meta Key             |
-|:---------:|:-----------------------------:|
-| Esc       | Escape                        |
-| Tab       | Tab                           |
-| Command_L | Command Left                  |
-| Command_R | Command Right                 |
-| Del       | Delete                        |
-| Ins       | Insert                        |
-| Return    | Return (Enter)                |
-| Up        | Up Arrow                      |
-| Right     | Right Arrow                   |
-| Down      | Down Arrow                    |
-| Left      | Left Arrow                    |
+| Albatross |       Keyboard Meta Key       |
+| :-------: | :---------------------------: |
+|    Esc    |            Escape             |
+|    Tab    |              Tab              |
+| Command_L |         Command Left          |
+| Command_R |         Command Right         |
+|    Del    |            Delete             |
+|    Ins    |            Insert             |
+|  Return   |        Return (Enter)         |
+|    Up     |           Up Arrow            |
+|   Right   |          Right Arrow          |
+|   Down    |          Down Arrow           |
+|   Left    |          Left Arrow           |
 | Alphabet  | Switch input mode to alphabet |
-| Kana      | Switch input mode to kana     |
-| F1        | F1                            |
-| F2        | F2                            |
-| F3        | F3                            |
-| F4        | F4                            |
-| F5        | F5                            |
-| F6        | F6                            |
-| F7        | F7                            |
-| F8        | F8                            |
-| F9        | F9                            |
-| F10       | F10                           |
-| F11       | F11                           |
-| F12       | F12                           |
-| Shift_L   | Shift Left                    |
-| Shift_R   | Shift Right                   |
-| Option_L  | Option Left                   |
-| Option_R  | Option Right                  |
-| CapsLock  | Caps Lock                     |
-| Space     | Space                         |
-| Control   | Control                       |
+|   Kana    |   Switch input mode to kana   |
+|    F1     |              F1               |
+|    F2     |              F2               |
+|    F3     |              F3               |
+|    F4     |              F4               |
+|    F5     |              F5               |
+|    F6     |              F6               |
+|    F7     |              F7               |
+|    F8     |              F8               |
+|    F9     |              F9               |
+|    F10    |              F10              |
+|    F11    |              F11              |
+|    F12    |              F12              |
+|  Shift_L  |          Shift Left           |
+|  Shift_R  |          Shift Right          |
+| Option_L  |          Option Left          |
+| Option_R  |         Option Right          |
+| CapsLock  |           Caps Lock           |
+|   Space   |             Space             |
+|  Control  |            Control            |
 
 For example, `Control + a` combination can be `[Ctrl, a]` in configuration file.
 
-You can see an example in configuration file, see [albatross.yml](https://github.com/ysugimoto/Albatross/blob/master/Albatross/albatross.yml).
+You can see an example in configuration file, see [albatross.yml](https://github.com/yuyan7/Albatross/blob/master/Albatross/albatross.yml).
 
 ## Acknowledegments
 
@@ -155,3 +153,4 @@ MIT License
 ## Contributors
 
 - [@ysugimoto](https://github.com/ysugimoto)
+- [@yuyan7](https://github.com/yuyan7)
