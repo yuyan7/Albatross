@@ -79,11 +79,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func launchAtLogin(_ sender: NSButton) {
         isLaunchAtLogin = !isLaunchAtLogin
         
-        if !SMLoginItemSetEnabled(launchHelperAppIdentifier as CFString, isLaunchAtLogin) {
+        do {
+            if isLaunchAtLogin {
+                try SMAppService.mainApp.register()
+            } else {
+                try SMAppService.mainApp.unregister()
+            }
+        } catch {
             AppAlert.display(message: "Failed to set launchLogin")
             return
         }
-        
+
         UserDefaults.standard.set(isLaunchAtLogin, forKey: launchAtLoginKey)
         menu.removeItem(at: 1)
         menu.insertItem(withTitle: isLaunchAtLogin ? "✓ Launch At Login" : "Launch At Login",
